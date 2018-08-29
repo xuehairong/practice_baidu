@@ -1,0 +1,43 @@
+*{
+    box-sizing: border-box;
+}
+/* .lab {
+    font-weight: bold;
+} */
+#sidebar{
+    display: block;
+    padding: 20px;
+    background-color:gray;
+    color: white;
+}
+.title,.history-title {
+    width: 20%;
+    line-height: 150px;
+    height: 150px;
+    text-align: center;
+    background-color: gainsboro;
+    float: left;
+    font-size: 1.5em;
+    font-weight: 700;
+    border-bottom: 2px solid gray;
+}
+.detail,.history-detail{
+    width:80%;
+    height: 150px;
+    float: left;
+    border-bottom: 2px solid gray;
+}
+.detail :first-child {
+    margin-left: 10px;
+}
+.history-detail span{
+    margin-left: 10px;
+}
+.detail p {
+    display: block;
+    margin-left: 2em;
+    float: left;    
+}
+.detail p :first-child,.history-detail p :first-child {
+    font-weight: bold; 
+}

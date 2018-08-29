@@ -1,0 +1,36 @@
+*{
+    box-sizing: border-box;
+}
+#sidebar{
+    width: 20%;
+    height: 750px;
+    float: left;
+    text-align: center;
+    color: white;
+    background-color: deepskyblue;
+}
+#content{
+    /* margin-left: 5%; */
+    padding-left: 20px;
+    width: 80%;
+    float: left;
+}
+.title,.history-title{
+    font-size: 1.5em;
+    font-weight: 700;
+}
+.detail p :first-child,.history-detail p :first-child {
+    font-weight: bold;
+}
+.title,.history-title {
+    clear: both;
+}
+.detail p {
+    /* display: block; */
+    margin-left: 2em;
+    float: left;
+    
+}
+.history-detail span{
+    display:block;
+}

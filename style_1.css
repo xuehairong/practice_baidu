@@ -1,0 +1,22 @@
+*{
+    box-sizing: border-box;
+}
+.title,.history-title{
+    font-size: 1.5em;
+    font-weight: 700;
+}
+.detail p :first-child,.history-detail p :first-child {
+    font-weight: bold;
+}
+.title,.history-title {
+    clear: both;
+}
+.detail p {
+    /* display: block; */
+    margin-left: 2em;
+    float: left;
+    
+}
+.history-detail span{
+    display:block;
+}
