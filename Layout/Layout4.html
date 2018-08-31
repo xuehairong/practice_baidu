@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="UTF-8">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>三栏布局(左侧固定宽度，右侧固定宽度，中间部分宽度随浏览器宽度变化而自适应变化)</title>
+    <style>
+    html,body,#left,#right,#middle{
+        height: 100%;
+        margin: 0;
+    }
+    #left{
+        background-color: #CCCCFF;
+    }
+    #right{
+        background-color: #CCFFCC;
+    }
+    #middle{
+        background-color: antiquewhite;
+    }
+    /*Float*/
+    /* #left{
+        float: left;
+        width: 200px;
+    }
+    #middle{
+        float: left;
+        width: calc(100% - 400px); 
+    }
+    #right{
+        width:200px;
+        float: right;        
+    } */
+    /*Position*/
+    /* #left{
+        position: absolute;  
+        width: 200px;
+    }
+    #middle{
+        position: absolute;
+        top:0;
+        left:200px;
+        right: 200px;
+    }
+    #right{
+        position: absolute;         
+        left: calc(100% - 200px);
+        top:0;
+        right: 0; 
+    } */
+    /* Flexbox */
+    body{
+        display: flex;
+        display:-webkit-flex;
+    }
+    #left,#right{
+        width: 200px;
+    }
+    #middle{
+        width: 100%;
+    }
+    /* #right{
+        flex: 200px;
+    } */
+    </style>
+</head>
+<body>
+    <div id="left"></div>
+    <div id="middle"></div>
+    <div id="right"></div>
+</body>
+</html>
