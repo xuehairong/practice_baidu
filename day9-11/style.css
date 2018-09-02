@@ -1,0 +1,133 @@
+*{
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box；
+}
+body{
+    margin:0;
+}
+#page1 {
+    height: 990px;
+    background-image: url(img/Background.png);
+    color:#FFFFFF;
+    text-align: center;
+}
+.wrapper{
+    width:970px;
+    margin: 0 auto;
+}
+
+.intro{
+    height: 990px;
+    padding-top: 20%;
+    font-family: 'Courier New', Courier, monospace;
+}
+.intro-title{
+    font-weight: 700;
+    font-size: 62px;
+}
+.intro-content{
+    padding: 80px 10%;
+    font-size: 20px;
+}
+.register{
+    padding: 40px;
+    position: relative;
+    height: 250px;
+    border:1px solid #878076;
+}
+.register p:nth-of-type(1){
+    font-weight: 700;
+}
+.register p:nth-of-type(2){
+    color: #878076;
+}
+.register input{
+    border:1px solid #878076;
+    background-color: transparent;
+    padding: 10px 30px;
+    font-size: 12px;
+    color: white;
+}
+.register button{
+    padding: 9px 20px;
+    font-size: 12px
+}
+#page2{
+    padding-top:100px;
+    height: 700px;
+}
+.title{
+    margin:0 auto;
+    width: 70%;
+    text-align: center;
+}
+.title p:nth-of-type(1){
+    font-size: 14px;
+}
+.title p:nth-of-type(2){
+    font-size: 42px;
+}
+.iconlist{
+    height: 100px;
+    width:50%;
+    float: left;
+}
+.iconlist img{
+    width:15%;
+    float:left;
+    padding:20px 20px 35px 20px;
+}
+
+.iconlist p:nth-of-type(1) {
+    font-weight: 700;
+}
+#page3{
+    height: 790px;
+    background-image: url(img/Background2.png);
+    /* color: #FFF; */
+}
+#page3 p:nth-of-type(1){
+    color: #FFF;
+    font-size: 42px;
+}
+#page3 p:nth-of-type(2){
+    color: #878076;
+    font-size: 18px;
+}
+#page3 input{
+    border:1px solid #878076;
+    background-color: transparent;
+    padding: 10px 30px;
+    font-size: 12px;
+}
+#page3 input:nth-of-type(1){
+    background-color:#FFF;
+}
+#page3 input:nth-of-type(2){
+    color: #FFF;
+}
+
+#products{
+    height:600px;
+    border-bottom: 1px solid #F0F0F0;
+}
+#description{
+    height: 1000px;
+    border-bottom: 1px solid #F0F0F0;
+}
+#crew{
+    height: 1080px;
+    border-bottom: 1px solid #F0F0F0;
+}
+#contact{
+    height: 700px;
+}
+#footer{
+    height:406px ;
+    background-color: #141414;
+}
+h1{
+    padding: 0;
+    margin:0;
+}
