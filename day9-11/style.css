@@ -129,36 +129,16 @@ body{
     height: 1000px;
     border-bottom: 1px solid #F0F0F0;
 }
+#description .line{
+    display:flex;
+    display:-webkit-flex;
+}
 .photo{
-    width: 55%;
-    height: 250px;
-    float: left;
-    text-align: center;
-    font-size: 0;
-    padding-top:5%;
-}
-.photo img{
-    width: 324px;
-    height: 200px;   
-}
-.rightImg,.rightDetail{
-    float: right;
-}
-.leftImg{
-    float: left;
+    padding: 20px;
 }
 .photo-detail{
-    height: 250px;
-    width: 45%;
-    float: left;
-    padding: 5%;
-}
-.photo-detail p:nth-of-type(1){
-    font-weight: 700;
-    font-size: 20px;
-}
-.photo-detail p{
-    width: 80%;
+    flex: 1;
+    padding: 20px;
 }
 #crew{
     height: 1080px;
