@@ -15,11 +15,12 @@ body{
 .wrapper{
     width:970px;
     margin: 0 auto;
+    padding-top:10%;
 }
 
 .intro{
     height: 990px;
-    padding-top: 20%;
+    padding-top: 10%;
     font-family: 'Courier New', Courier, monospace;
 }
 .intro-title{
@@ -87,6 +88,9 @@ body{
     background-image: url(img/Background2.png);
     /* color: #FFF; */
 }
+#page3 p{
+    width: 30%;
+}
 #page3 p:nth-of-type(1){
     color: #FFF;
     font-size: 42px;
@@ -98,7 +102,7 @@ body{
 #page3 input{
     border:1px solid #878076;
     background-color: transparent;
-    padding: 10px 30px;
+    padding: 20px 30px;
     font-size: 12px;
 }
 #page3 input:nth-of-type(1){
@@ -111,10 +115,50 @@ body{
 #products{
     height:600px;
     border-bottom: 1px solid #F0F0F0;
+    text-align: center;
+}
+#products p{
+    font-size: 42px;
+}
+.product-detail{
+    width:33.33%;
+    float: left;
+    padding: 5%;
 }
 #description{
     height: 1000px;
     border-bottom: 1px solid #F0F0F0;
+}
+.photo{
+    width: 55%;
+    height: 250px;
+    float: left;
+    text-align: center;
+    font-size: 0;
+    padding-top:5%;
+}
+.photo img{
+    width: 324px;
+    height: 200px;   
+}
+.rightImg,.rightDetail{
+    float: right;
+}
+.leftImg{
+    float: left;
+}
+.photo-detail{
+    height: 250px;
+    width: 45%;
+    float: left;
+    padding: 5%;
+}
+.photo-detail p:nth-of-type(1){
+    font-weight: 700;
+    font-size: 20px;
+}
+.photo-detail p{
+    width: 80%;
 }
 #crew{
     height: 1080px;
