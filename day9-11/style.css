@@ -52,7 +52,8 @@ body{
 }
 .register button{
     padding: 9px 20px;
-    font-size: 12px
+    font-size: 12px;
+    background-color: #FFF;
 }
 #page2{
     padding-top:100px;
@@ -144,14 +145,101 @@ body{
     height: 1080px;
     border-bottom: 1px solid #F0F0F0;
 }
+.hover-bg{
+    width: 50%;
+    float: left;
+}
+
+.hover-bg .hover-text {
+	position: absolute;
+	text-align: center;
+	margin: 0 auto;
+	color: #ffffff;
+	background: rgba(0, 0, 0, 0.66);
+	padding: 2% 0;
+	height: 340px;
+	width: 470px;
+	opacity: 0;
+    transition: all 0.5s;
+}
+/* .hover-bg .hover-text>p{
+	opacity: 0;
+	-webkit-transform: translateY(100%);
+            transform: translateY(100%);
+            transition: all 0.3s;
+}
+.hover-bg:hover .hover-text>p{
+	opacity: 1;
+    -webkit-backface-visibility:hidden;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+} */
+
+.hover-bg:hover .hover-text{
+	opacity: 1;
+}
 #contact{
     height: 700px;
+}
+.cd-md-5{
+    float: left;
+    width:50%;
+}
+.cd-md-1{
+    float: left;
+    width:10%;
+}
+.cd-md-9{
+    clear: right;
+    float: left;
+    width:90%;
+}
+.form{
+    border: 1px solid #878076;
+    padding:0 5%;
+    text-align: center;
+}
+.form input,.form textarea{
+    width: 370px;
+    display: block;
+    margin: 20px auto;
+    
+}
+.form input[type^=text]{
+    height: 50px;
+    border: 1px solid #878076;
+}
+.form textarea{
+    height: 144px;
+    border: 1px solid #878076;
+}
+.form input[type^=button]{
+    height: 50px;
+    background-color: black;
+    color: #FFF;
+}
+.contact-detail{
+    padding: 5% 10%;
 }
 #footer{
     height:406px ;
     background-color: #141414;
+    color: #FFF;
+    display:flex;
+    margin: 0 auto;
+}
+#footer div{
+    margin: 0 auto;
+    padding:5% 5%;
 }
 h1{
     padding: 0;
     margin:0;
 }
+button,input[type^=button]{
+    /* margin: 0; */
+    padding: 0;
+    border: 1px solid transparent;
+    outline: none; 
+}
+ 
