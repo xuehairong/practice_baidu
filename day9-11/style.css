@@ -7,7 +7,7 @@ body{
     margin:0;
 }
 #page1 {
-    height: 990px;
+    min-height: 990px;
     background-image: url(img/Background.png);
     color:#FFFFFF;
     text-align: center;
@@ -19,7 +19,7 @@ body{
 }
 
 .intro{
-    height: 990px;
+    min-height: 990px;
     padding-top: 10%;
     font-family: 'Courier New', Courier, monospace;
 }
@@ -34,7 +34,7 @@ body{
 .register{
     padding: 40px;
     position: relative;
-    height: 250px;
+    min-height: 250px;
     border:1px solid #878076;
 }
 .register p:nth-of-type(1){
@@ -57,7 +57,7 @@ body{
 }
 #page2{
     padding-top:100px;
-    height: 700px;
+    min-height: 700px;
 }
 .title{
     margin:0 auto;
@@ -71,7 +71,7 @@ body{
     font-size: 42px;
 }
 .iconlist{
-    height: 100px;
+    min-height: 100px;
     width:50%;
     float: left;
 }
@@ -85,7 +85,7 @@ body{
     font-weight: 700;
 }
 #page3{
-    height: 790px;
+    min-height: 790px;
     background-image: url(img/Background2.png);
     /* color: #FFF; */
 }
@@ -114,7 +114,7 @@ body{
 }
 
 #products{
-    height:600px;
+    min-height:600px;
     border-bottom: 1px solid #F0F0F0;
     text-align: center;
 }
@@ -127,7 +127,7 @@ body{
     padding: 5%;
 }
 #description{
-    height: 1000px;
+    min-height: 1000px;
     border-bottom: 1px solid #F0F0F0;
 }
 #description .line{
@@ -142,7 +142,7 @@ body{
     padding: 20px;
 }
 #crew{
-    height: 1080px;
+    min-height: 1080px;
     border-bottom: 1px solid #F0F0F0;
 }
 .hover-bg{
@@ -157,7 +157,7 @@ body{
 	color: #ffffff;
 	background: rgba(0, 0, 0, 0.66);
 	padding: 2% 0;
-	height: 340px;
+	min-height: 340px;
 	width: 470px;
 	opacity: 0;
     transition: all 0.5s;
@@ -179,7 +179,7 @@ body{
 	opacity: 1;
 }
 #contact{
-    height: 700px;
+    min-height: 700px;
 }
 .cd-md-5{
     float: left;
@@ -206,15 +206,15 @@ body{
     
 }
 .form input[type^=text]{
-    height: 50px;
+    min-height: 50px;
     border: 1px solid #878076;
 }
 .form textarea{
-    height: 144px;
+    min-height: 144px;
     border: 1px solid #878076;
 }
 .form input[type^=button]{
-    height: 50px;
+    min-height: 50px;
     background-color: black;
     color: #FFF;
 }
@@ -222,7 +222,7 @@ body{
     padding: 5% 10%;
 }
 #footer{
-    height:406px ;
+    min-height:406px ;
     background-color: #141414;
     color: #FFF;
     display:flex;
