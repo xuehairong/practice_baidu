@@ -1,5 +1,6 @@
 body,html{
     height: 100%;
+    overflow: hidden;
     margin: 0;
 }
 body{
@@ -22,7 +23,7 @@ ul{
 #apps img{
     margin: 10px;
 }
-#apps .bottom{
+.bottom{
     position: absolute;
     bottom: 0; 
 }
@@ -41,7 +42,7 @@ ul{
 #nav .title{
     color:#525E70;
 }
-.setting{
+.right{
     float: right;
 }
 .info-tip{
@@ -49,7 +50,14 @@ ul{
     float: right;
     background-color: #1A92EC;
     border-radius: 10px;
-    padding: 4px 8px;
+    padding: 0 8px;
+}
+.danger-tip{
+    color: #FFF;
+    float: right;
+    background-color: red;
+    border-radius: 10px;
+    padding: 0 8px;
 }
 #message{
 
