@@ -1,11 +1,11 @@
 body,html{
     height: 100%;
-    overflow: hidden;
+    /* overflow: hidden; */
     margin: 0;
 }
-body{
+/* body{
     display: flex;
-}
+} */
 ul{
     list-style: none;
     padding: 0;
@@ -14,8 +14,12 @@ ul{
     padding: 0 10%;
     /* margin: 0 auto; */
 }
+#apps,#nav,#messsage{
+    float: left;
+}
 #apps{
     width: 100px;
+    height: 100%;
     background-color: #1D2531;
     text-align: center;
     font-size: 0;
@@ -24,11 +28,14 @@ ul{
     margin: 10px;
 }
 .bottom{
+    /* position: relative; */
     position: absolute;
+    margin-top: 10px;
     bottom: 0; 
 }
 #nav{
     width: 250px;
+    height: 100%;
     background-color: #222C3C;
     color: #B7C0CD;
     font-size: 14px;
@@ -37,7 +44,7 @@ ul{
     border: 1px solid #2A3547;
 }
 #nav ul li{
-    padding:10px 0;
+    padding:5px 0;
 }
 #nav .title{
     color:#525E70;
@@ -61,4 +68,24 @@ ul{
 }
 #message{
 
+}
+#message .header{
+    height: 80px;
+    border-bottom: 1px solid #E8EAEA;
+}
+#message .header span{
+    font-size: 24px;
+}
+#message .user-head {
+    height: 80px;
+    display: flex;
+    position: absolute;
+    right: 0;
+    top:0; 
+}
+#message .user-head div:nth-of-type(1){
+    padding:20px;
+}
+#message .user-head div:nth-of-type(3){
+    padding:30px;
 }
