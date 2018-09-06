@@ -1,3 +1,6 @@
+*{
+    box-sizing: border-box;
+}
 body,html{
     height: 100%;
     /* overflow: hidden; */
@@ -14,7 +17,7 @@ ul{
     padding: 0 10%;
     /* margin: 0 auto; */
 }
-#apps,#nav,#messsage{
+#apps,#nav{
     float: left;
 }
 #apps{
@@ -67,25 +70,79 @@ ul{
     padding: 0 8px;
 }
 #message{
-
+    width:calc(100% - 350px);
+    float: right;        
 }
 #message .header{
     height: 80px;
+    padding: 20px;
+    color: #354052; 
     border-bottom: 1px solid #E8EAEA;
 }
 #message .header span{
     font-size: 24px;
 }
-#message .user-head {
-    height: 80px;
-    display: flex;
+.top-right{
     position: absolute;
     right: 0;
     top:0; 
 }
-#message .user-head div:nth-of-type(1){
+.user-head {
+    height: 80px;
+    display: flex;  
+}
+.user-head div:nth-of-type(1){
     padding:20px;
 }
-#message .user-head div:nth-of-type(3){
+.user-head div:nth-of-type(3){
     padding:30px;
+}
+.user-name{
+    padding: 20px 0;
+}
+.user-name p{
+    margin: 0;
+}
+.user-name p:nth-of-type(1){
+    color:#259AF1;
+}
+.user-name p:nth-of-type(2){
+    font-size: 14px;
+    color: #B5B5B5;
+}
+.list{
+    float: left;
+    width: 400px;
+    /* height: 100%; */
+    border-right: 1px solid #E8EAEA;
+}
+.list .search{
+    height: 70px;
+    /* padding: 20px; */
+    text-align: center;
+    padding:15px 0;
+    border-bottom: 1px solid #E8EAEA;
+}
+.list .search input{
+    border:1px solid #E8EAEA;
+    border-radius: 5px;
+    height: 35px;
+    width: 90%;
+    background-color: transparent;
+    /* background: transparent url(img/) no-repeat 0 right; */
+}
+.detail{
+    width:calc(100% - 400px);
+    float: right;
+}
+.msg-title{
+    margin: 0 20px 10px;
+    color: #585D68;
+    font-size: 14px;
+    width: 80%;
+    float: left;
+}
+.msg-bar{
+    border-bottom: 1px solid #E8EAEA;
+    height: 130px;
 }
