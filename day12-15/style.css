@@ -90,20 +90,26 @@ ul{
 .user-head {
     height: 80px;
     display: flex;  
+    padding: 20px;
 }
-.user-head div:nth-of-type(1){
-    padding:20px;
-}
+/* .user-head >div{
+    padding:20px 0;
+} */
 .user-head div:nth-of-type(3){
-    padding:30px;
+    float: right;
+    padding:10px;
 }
 .user-name{
-    padding: 20px 0;
+    padding: 5px 20px;
+    width: 100%;
 }
 .user-name p{
     margin: 0;
 }
 .user-name p:nth-of-type(1){
+    color:#585D68;
+}
+.user-name .active{
     color:#259AF1;
 }
 .user-name p:nth-of-type(2){
@@ -135,14 +141,29 @@ ul{
     width:calc(100% - 400px);
     float: right;
 }
-.msg-title{
-    margin: 0 20px 10px;
-    color: #585D68;
-    font-size: 14px;
-    width: 80%;
-    float: left;
-}
+
 .msg-bar{
     border-bottom: 1px solid #E8EAEA;
     height: 130px;
+    padding:0 20px;
+}
+.msg-title{
+    /* margin: 0 20px 10px; */
+    color: #585D68;
+    font-size: 14px;
+    width: 90%;
+    float: left;
+}
+.msg-active{
+    border-left: 3px solid #1A92EC;
+}
+.circle{
+    float: left;
+    width: 10px;      
+    height: 10px;     
+    margin:5px; 
+    background-color:#1A92EC;      
+    border-radius: 50%;      
+    -moz-border-radius: 50%;      
+    -webkit-border-radius: 50%;
 }
