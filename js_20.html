@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="UTF-8">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        select {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <input id="name" type="text">
+    <button id="submit-btn">Submit</button>
+    <label>
+            <input id="school" name="status" type="radio">
+            School
+        </label>
+    <label>
+            <input id="company" name="status" type="radio">
+            Company
+        </label>
+
+    <select id="school-select">        
+            <option>北京邮电大学</option>
+            <option>黑龙江大学</option>
+            <option>华中科技大学</option>
+        </select>
+
+    <select id="company-select">        
+            <option>百度</option>
+            <option>爱奇艺</option>        
+        </select>
+    <script>
+        document.getElementById('submit-btn').onclick = function() {
+            console.log(document.getElementById('name').value);
+        }
+        document.body.onkeydown = function(e) {
+            // alert(e.keyCode);
+            if (e.keyCode == 13) {
+                document.getElementById('submit-btn').click();
+            }
+            if (e.keyCode == 27) {
+                document.getElementById('name').value = "";
+            }
+        }
+        document.getElementById('school').onclick = function() {
+            document.getElementById('school-select').style.display = "inline-block";
+            document.getElementById('company-select').style.display = 'none';
+        }
+        document.getElementById('company').onclick = function() {
+            document.getElementById('company-select').style.display = "inline-block";
+            document.getElementById('school-select').style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>
