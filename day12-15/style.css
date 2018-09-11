@@ -144,6 +144,16 @@ ul {
     color: #B5B5B5;
 }
 
+.user-name .time {
+    font-size: 14px;
+    color: rgb(127, 143, 164);
+}
+
+.user-name .msg {
+    color: rgb(88, 93, 104);
+    font-size: 14px;
+}
+
 .list {
     float: left;
     width: 400px;
@@ -307,10 +317,54 @@ ul {
 }
 
 .msg-content {
-    padding: 10px 20px;
+    padding: 10px 0;
 }
 
+.msg-detail {
+    display: flex;
+    padding: 0 20px;
+}
 
-/* .main{
-    display:flex;
-} */
+.divider {
+    text-align: center;
+}
+
+.divider span:before {
+    left: 0;
+    /*调整背景横线的左右距离*/
+}
+
+.divider span:after {
+    right: 0;
+}
+
+.divider span {
+    display: block;
+    /*设置为块级元素会独占一行形成上下居中的效果*/
+    position: relative;
+    /*定位横线（当横线的父元素）*/
+    font-size: 14px;
+    color: rgb(127, 143, 164);
+}
+
+.divider span:before,
+.divider span:after {
+    content: '';
+    /*CSS伪类用法*/
+    position: absolute;
+    /*定位背景横线的位置*/
+    top: 52%;
+    background: rgba(159, 169, 186, 0.4);
+    /*宽和高做出来的背景横线*/
+    width: 40%;
+    height: 1px;
+}
+
+.newmsg-divider span {
+    color: rgb(35, 153, 241);
+}
+
+.newmsg-divider span:before,
+.newmsg-divider span:after {
+    background: rgb(35, 153, 241);
+}
