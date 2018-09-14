@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var array = [
+            [1, "Area1", -1],
+            [2, "Area2", -1],
+            [3, "Area1-1", 1],
+            [4, "Area1-2", 1],
+            [5, "Area2-1", 2],
+            [6, "Area2-2", 2],
+            [7, "Area1-2-3", 4],
+            [8, "Area2-2-1", 6],
+        ];
+        var obj = new Object();
+        var firstLevelObj;
+
+        function arrayToObject() {
+            for (var i = 0; i < array.length; i++) {
+                if (array[i][2] == -1) {
+                    firstLevelObj = {};
+                    firstLevelObj.name = array[i][1];
+                    obj[array[i][0]] = firstLevelObj;
+                    GetChild(firstLevelObj, array[i][0]);
+                }
+            }
+            return obj;
+        }
+
+        function GetChild(subObj, parentId) {
+            var subMenu = new Object();
+            for (var i = 0; i < array.length; i++) {
+                if (array[i][2] == parentId) {
+                    var subsubMenu = {};
+                    subsubMenu.name = array[i][1];
+                    subMenu[array[i][0]] = subsubMenu;
+                    GetChild(subsubMenu, array[i][0]);
+                }
+            }
+
+            subObj.subMenu = subMenu;
+        }
+        // arrayToObject(menuArr)
+        console.log(arrayToObject());
+
+        //         var menuObject = {
+        //     "1": {
+        //         name: "Area1",
+        //         subMenu: {
+        //             "3": {
+        //                 name: "Area1-1"
+        //             },
+        //             "4": {
+        //                 name: "Area1-2",
+        //                 subMenu: {
+        //                     "7": {
+        //                         name: "Area1-2-3"
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+
+        //     ……
+
+        // }
+    </script>
+</body>
+
+</html>

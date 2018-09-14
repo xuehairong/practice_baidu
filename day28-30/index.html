@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="UTF-8">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <input id="email-input" type="text">
+        <ul id="email-sug-wrapper" class="email-sug">
+        </ul>
+    </div>
+</body>
+<script>
+    var postfixList = ['163.com', 'gmail.com', '126.com', 'qq.com', '263.net'];
+    var wrapper = document.getElementById('email-sug-wrapper');
+    var input = document.getElementById('email-input');
+
+    input.oninput = function() {
+        if (wrapper.hasChildNodes) {
+            wrapper.removeChild(wrapper.children);
+        }
+        for (var i in postfixList) {
+            var li = document.createElement('li');
+            li.innerHTML = getText() + '@' + postfixList[i];
+            wrapper.appendChild(li);
+        }
+    }
+
+    function getText() {
+        return input.value.replace(/ /g, '').replace(/　/g, '');
+    }
+</script>
+
+</html>
