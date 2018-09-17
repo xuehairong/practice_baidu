@@ -40,39 +40,58 @@
     var wrapper = document.getElementById('email-sug-wrapper');
     var input = document.getElementById('email-input');
 
-    // input.oninput = function() {
-    //     resetSelected();
-    //     controlTip();
-    //     getTip();
-    // }
-    input.onkeydown = function(e) {
-        controlTip();
-        getTip();
+    input.onkeyup = function(e) {
 
         var e = e || window.event;
-        console.log(e.keyCode);
         if (e.keyCode != 38 && e.keyCode != 40 && e.keyCode != 13) {
+            controlTip();
+            getTip();
             resetSelected();
         } else {
-            var selectedLi = document.getElementsByClassName('selected')[0];
+            // var selectedLi = wrapper.getElementsByClassName('selected')[0];
+            // var first = wrapper.getElementsByTagName('li')[0];
             // selectedLi.removeAttribute('class');
+            var liList = wrapper.getElementsByTagName('li');
+            var flag;
+            for (var i = 0; i < liList.length; i++) {
+                // console.log(liList[i].className == 'selected');
+                if (liList[i].className == 'selected') {
+                    flag = i;
+                    liList[i].removeAttribute('class');
+                }
+            }
+            // console.log(flag);
 
             //按的是上键
             if (e.keyCode == 38) {
-                alert(selectedLi.innerHTML);
+                if (flag != 0) {
+                    liList[flag - 1].setAttribute('class', 'selected');
+                    flag--;
+                } else {
+                    liList[liList.length - 1].setAttribute('class', 'selected');
+                    flag = liList.length - 1;
+                }
             }
             //按的是下键 
             if (e.keyCode == 40) {
-
+                if (flag != liList.length - 1) {
+                    liList[flag + 1].setAttribute('class', 'selected');
+                    flag++;
+                } else {
+                    liList[0].setAttribute('class', 'selected');
+                    falg = 0;
+                }
+            }
+            if (e.keyCode == 13) {
+                input.value = htmlDecode(liList[flag].innerHTML);　　
+                hideTip();
             }
         }
-
-
 
     }
 
     function getText() {
-        var text = input.value.replace(/ /g, '').replace(/　/g, '');
+        var text = htmlEncode(input.value.replace(/ /g, '').replace(/　/g, ''));
         return text;
     }
 
@@ -137,7 +156,7 @@
         var e = e || window.event;　　　　
         var target = e.target || e.srcElement;　　　　
         if (target.nodeName.toLowerCase() == 'li') {　　　　　　　
-            input.value = target.innerHTML;　　
+            input.value = htmlDecode(target.innerHTML);　　
             hideTip();　　
         }
     }
@@ -150,9 +169,52 @@
         }
         first.setAttribute('class', 'selected');
     }
-    // input.oninput = function(e) {
-
-    // }
+    /*1.用浏览器内部转换器实现html转码*/
+    function htmlEncode(html) {
+        //1.首先动态创建一个容器标签元素，如DIV
+        var temp = document.createElement("div");
+        //2.然后将要转换的字符串设置为这个元素的innerText(ie支持)或者textContent(火狐，google支持)
+        (temp.textContent != undefined) ? (temp.textContent = html) : (temp.innerText = html);
+        //3.最后返回这个元素的innerHTML，即得到经过HTML编码转换的字符串了
+        var output = temp.innerHTML;
+        temp = null;
+        return output;
+    }
+    /*2.用浏览器内部转换器实现html解码*/
+    function htmlDecode(text) {
+        //1.首先动态创建一个容器标签元素，如DIV
+        var temp = document.createElement("div");
+        //2.然后将要转换的字符串设置为这个元素的innerHTML(ie，火狐，google都支持)
+        temp.innerHTML = text;
+        //3.最后返回这个元素的innerText(ie支持)或者textContent(火狐，google支持)，即得到经过HTML解码的字符串了。
+        var output = temp.innerText || temp.textContent;
+        temp = null;
+        return output;
+    }
+    /*3.用正则表达式实现html转码*/
+    function htmlEncodeByRegExp(str) {
+        var s = "";
+        if (str.length == 0) return "";
+        s = str.replace(/&/g, "&");
+        s = s.replace(/</g, "<");
+        s = s.replace(/>/g, ">");
+        s = s.replace(/ /g, " ");
+        s = s.replace(/\'/g, "'");
+        s = s.replace(/\"/g, "\"");
+        return s;
+    }
+    /*4.用正则表达式实现html解码*/
+    function htmlDecodeByRegExp(str) {
+        var s = "";
+        if (str.length == 0) return "";
+        s = str.replace(/&/g, "&");
+        s = s.replace(/</g, "<");
+        s = s.replace(/>/g, ">");
+        s = s.replace(/ /g, " ");
+        s = s.replace(/'/g, "\'");
+        s = s.replace(/"/g, "\"");
+        return s;
+    }
 </script>
 
 </html>
