@@ -5,7 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>邮件提示框</title>
+    <style>
+        ul {
+            margin: 0;
+            padding: 0;
+            width: 200px;
+        }
+        
+        ul li {
+            list-style: none;
+            padding: 10px;
+        }
+        
+        li:hover {
+            background-color: pink;
+        }
+        
+        ul .selected {
+            background-color: paleturquoise;
+        }
+    </style>
 </head>
 
 <body>
@@ -20,20 +40,119 @@
     var wrapper = document.getElementById('email-sug-wrapper');
     var input = document.getElementById('email-input');
 
-    input.oninput = function() {
-        if (wrapper.hasChildNodes) {
-            wrapper.removeChild(wrapper.children);
+    // input.oninput = function() {
+    //     resetSelected();
+    //     controlTip();
+    //     getTip();
+    // }
+    input.onkeydown = function(e) {
+        controlTip();
+        getTip();
+
+        var e = e || window.event;
+        console.log(e.keyCode);
+        if (e.keyCode != 38 && e.keyCode != 40 && e.keyCode != 13) {
+            resetSelected();
+        } else {
+            var selectedLi = document.getElementsByClassName('selected')[0];
+            // selectedLi.removeAttribute('class');
+
+            //按的是上键
+            if (e.keyCode == 38) {
+                alert(selectedLi.innerHTML);
+            }
+            //按的是下键 
+            if (e.keyCode == 40) {
+
+            }
         }
-        for (var i in postfixList) {
-            var li = document.createElement('li');
-            li.innerHTML = getText() + '@' + postfixList[i];
-            wrapper.appendChild(li);
-        }
+
+
+
     }
 
     function getText() {
-        return input.value.replace(/ /g, '').replace(/　/g, '');
+        var text = input.value.replace(/ /g, '').replace(/　/g, '');
+        return text;
     }
+
+    function getTip() {
+        var text = getText();
+        var frontText = '';
+        var behindText = '';
+        while (wrapper.getElementsByTagName('li').length > 0) {
+            wrapper.removeChild(wrapper.firstChild);
+        }
+        var index = text.indexOf('@');
+        if (index > 0) {
+            frontText = text.substring(0, index);
+            behindText = text.substring(index + 1, text.length);
+            console.log(behindText);
+        }
+        var flag = 0;
+        for (var i in postfixList) {
+            var li = document.createElement('li');
+            // if (i == 0) {
+            //     li.setAttribute('class', 'selected')
+            // }
+            if (index > 0) {
+                if (postfixList[i].indexOf(behindText) >= 0) {
+                    flag = 1;
+                    li.innerHTML = frontText + '@' + postfixList[i];
+                    wrapper.appendChild(li);
+                }
+            } else {
+                li.innerHTML = text + '@' + postfixList[i];
+                wrapper.appendChild(li);
+            }
+        }
+        if (index > 0 && flag == 0) {
+            for (var i in postfixList) {
+                // if (i == 0) {
+                //     li.setAttribute('class', 'selected')
+                // }
+                var li = document.createElement('li');
+                li.innerHTML = frontText + '@' + postfixList[i];
+                wrapper.appendChild(li);
+            }
+        }
+    }
+
+    function controlTip() {
+        if (getText() == '') {
+            hideTip();
+        } else {
+            showTip();
+        }
+    }
+
+    function showTip() {
+        wrapper.style.display = 'block';
+    }
+
+    function hideTip() {
+        wrapper.style.display = 'none';
+    }
+    wrapper.onclick = function(e) {
+        var e = e || window.event;　　　　
+        var target = e.target || e.srcElement;　　　　
+        if (target.nodeName.toLowerCase() == 'li') {　　　　　　　
+            input.value = target.innerHTML;　　
+            hideTip();　　
+        }
+    }
+
+    function resetSelected() {
+        var selectedLi = wrapper.getElementsByClassName('selected')[0];
+        var first = wrapper.getElementsByTagName('li')[0];
+        if (selectedLi != undefined && selectedLi != first) {
+            selectedLi.removeAttribute('class');
+        }
+        first.setAttribute('class', 'selected');
+    }
+    // input.oninput = function(e) {
+
+    // }
 </script>
 
 </html>
