@@ -7,16 +7,52 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>我是精明的小卖家</title>
     <script src="ife31data.js"></script>
+    <style>
+        table {
+            font-family: verdana, arial, sans-serif;
+            font-size: 11px;
+            color: #333333;
+            border-width: 1px;
+            border-color: #666666;
+            border-collapse: collapse;
+        }
+        
+        table th {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #dedede;
+        }
+        
+        table td {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #ffffff;
+        }
+    </style>
 </head>
 
 <body>
     <div id="region-radio-wrapper"></div>
     <div id="product-radio-wrapper"></div>
+    <select id="region-select">
+            <option>华东</option>
+            <option>华南</option>
+            <option>华北</option>
+        </select>
+    <select id="product-select">
+                <option>手机</option>
+                <option>笔记本</option>
+                <option>智能音箱</option>
+            </select>
     <div id="table-wrapper"></div>
 </body>
 <script>
-    // var regionSelect = document.getElementById('region-select');
-    // var productSelect = document.getElementById('product-select');
+    var regionSelect = document.getElementById('region-select');
+    var productSelect = document.getElementById('product-select');
     var tableWrapper = document.getElementById('table-wrapper');
     createCheckBox('region-radio-wrapper', [{
         value: '华东',
@@ -28,12 +64,22 @@
         value: '华北',
         text: '华北'
     }]);
-    // regionSelect.onchange = function() {
-    //     generateTable();
-    // }
-    // productSelect.onchange = function() {
-    //     generateTable();
-    // }
+    createCheckBox('product-radio-wrapper', [{
+        value: '手机',
+        text: '手机'
+    }, {
+        value: '笔记本',
+        text: '笔记本'
+    }, {
+        value: '智能音箱',
+        text: '智能音箱'
+    }]);
+    regionSelect.onchange = function() {
+        generateTable();
+    }
+    productSelect.onchange = function() {
+        generateTable();
+    }
 
     function getData() {
         var newSourceData = [];
@@ -49,7 +95,7 @@
 
     function generateTable() {
         var data = getData();
-        var str = "<table><thead><th><td>商品</td><td>地区</td><td>1月</td><td>2月</td><td>3月</td><td>4月</td><td>5月</td><td>6月</td><td>7月</td><td>8月</td><td>9月</td><td>10月</td><td>11月</td><td>12月</td></th></thead>";
+        var str = "<table><thead><th>商品</th><th>地区</th><th>1月</th><th>2月</th><th>3月</th><th>4月</th><th>5月</th><th>6月</th><th>7月</th><th>8月</th><th>9月</th><th>10月</th><th>11月</th><th>12月</th></thead>";
         str += "<tboday>";
         for (i in data) {
             str += "<tr><td>" + data[i].product + "</td><td>" + data[i].region + "</td>";
@@ -64,7 +110,7 @@
 
     function createCheckBox(wrapperId, data) {
         var wrapper = document.getElementById(wrapperId);
-        var str = '<input type="checkbox" value="all" checkbox-type="all">全选';
+        var str = '<input type="checkbox" value="all" checkbox-type="all"><span>全选</span>';
         for (i in data) {
             str += '<input type="checkbox" value="' + data[i].value + '">' + data[i].text;
         }
@@ -76,23 +122,20 @@
             if (target.type == 'checkbox') {
                 // var checkboxType = target.getAttribute('checkbox-type');
                 if (target.value == 'all') {
-                    for (item in checkboxList) {
-                        checkboxList[item].checked = target.checked;
+                    for (var i = 0; i < checkboxList.length; i++) {
+                        checkboxList[i].checked = target.checked;
                     }
                 } else {
                     var flag = true;
                     var elementAll;
-                    for (item in checkboxList) {
-                        if (checkboxList[item].value == 'all') {
-                            elementAll = checkboxList[item];
+                    for (var j = 0; j < checkboxList.length; j++) {
+                        if (checkboxList[j].value == 'all') {
+                            elementAll = checkboxList[j];
                         }
-                        console.log(checkboxList[item].checked);
-                        if (checkboxList[item].value != 'all' && checkboxList[item].checked != true) {
-                            //console.log(checkboxList[item].checked);
+                        if (checkboxList[j].value != 'all' && checkboxList[j].checked != true) {
                             flag = false;
                         }
                     }
-                    //console.log(flag);
                     elementAll.checked = flag;
                 }
             }
