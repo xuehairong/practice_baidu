@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>我是精明的小卖家</title>
+    <script src="ife31data.js"></script>
+</head>
+
+<body>
+    <div id="region-radio-wrapper"></div>
+    <div id="product-radio-wrapper"></div>
+    <div id="table-wrapper"></div>
+</body>
+<script>
+    // var regionSelect = document.getElementById('region-select');
+    // var productSelect = document.getElementById('product-select');
+    var tableWrapper = document.getElementById('table-wrapper');
+    createCheckBox('region-radio-wrapper', [{
+        value: '华东',
+        text: '华东'
+    }, {
+        value: '华南',
+        text: '华南'
+    }, {
+        value: '华北',
+        text: '华北'
+    }]);
+    // regionSelect.onchange = function() {
+    //     generateTable();
+    // }
+    // productSelect.onchange = function() {
+    //     generateTable();
+    // }
+
+    function getData() {
+        var newSourceData = [];
+        var selectedRegionValue = regionSelect.options[regionSelect.selectedIndex].text;
+        var selectedProductValue = productSelect.options[productSelect.selectedIndex].text;
+        for (i in sourceData) {
+            if (sourceData[i].region == selectedRegionValue && sourceData[i].product == selectedProductValue) {
+                newSourceData.push(sourceData[i]);
+            }
+        }
+        return newSourceData;
+    }
+
+    function generateTable() {
+        var data = getData();
+        var str = "<table><thead><th><td>商品</td><td>地区</td><td>1月</td><td>2月</td><td>3月</td><td>4月</td><td>5月</td><td>6月</td><td>7月</td><td>8月</td><td>9月</td><td>10月</td><td>11月</td><td>12月</td></th></thead>";
+        str += "<tboday>";
+        for (i in data) {
+            str += "<tr><td>" + data[i].product + "</td><td>" + data[i].region + "</td>";
+            for (s in data[i].sale) {
+                str += "<td>" + data[i].sale[s] + "</td>";
+            }
+            str += "</tr>";
+            str += "</tboday>"
+        }
+        tableWrapper.innerHTML = str;
+    }
+
+    function createCheckBox(wrapperId, data) {
+        var wrapper = document.getElementById(wrapperId);
+        var str = '<input type="checkbox" value="all" checkbox-type="all">全选';
+        for (i in data) {
+            str += '<input type="checkbox" value="' + data[i].value + '">' + data[i].text;
+        }
+        wrapper.innerHTML = str;
+        wrapper.onclick = function(e) {
+            var checkboxList = wrapper.getElementsByTagName('input');
+            var e = e || window.event;
+            var target = e.target || e.srcElement;
+            if (target.type == 'checkbox') {
+                // var checkboxType = target.getAttribute('checkbox-type');
+                if (target.value == 'all') {
+                    for (item in checkboxList) {
+                        checkboxList[item].checked = target.checked;
+                    }
+                } else {
+                    var flag = true;
+                    var elementAll;
+                    for (item in checkboxList) {
+                        if (checkboxList[item].value == 'all') {
+                            elementAll = checkboxList[item];
+                        }
+                        console.log(checkboxList[item].checked);
+                        if (checkboxList[item].value != 'all' && checkboxList[item].checked != true) {
+                            //console.log(checkboxList[item].checked);
+                            flag = false;
+                        }
+                    }
+                    //console.log(flag);
+                    elementAll.checked = flag;
+                }
+            }
+        }
+    }
+</script>
+
+</html>
