@@ -26,3 +26,4 @@ regionSelect.onchange = function() {
 productSelect.onchange = function() {
     generateTable();
 }
+CreateBarChart();
