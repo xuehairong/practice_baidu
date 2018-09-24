@@ -9,7 +9,7 @@ table {
 
 table th {
     border-width: 1px;
-    padding: 8px;
+    padding: 8px 20px;
     border-style: solid;
     border-color: #666666;
     background-color: #dedede;
@@ -17,8 +17,18 @@ table th {
 
 table td {
     border-width: 1px;
-    padding: 8px;
+    padding: 10px;
     border-style: solid;
     border-color: #666666;
     background-color: #ffffff;
+}
+
+#svg-wrapper,
+#canvas-wrapper {
+    width: 50%;
+    float: left;
+}
+
+#table-wrapper {
+    clear: both;
 }

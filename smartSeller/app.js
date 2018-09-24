@@ -20,10 +20,13 @@ createCheckBox('product-radio-wrapper', [{
     value: '智能音箱',
     text: '智能音箱'
 }]);
-regionSelect.onchange = function() {
-    generateTable();
-}
-productSelect.onchange = function() {
-    generateTable();
-}
-CreateBarChart();
+// regionSelect.onchange = function() {
+//     generateTable();
+// }
+// productSelect.onchange = function() {
+//     generateTable();
+// }
+var data = [120, 100, 140, 160, 180, 185, 190, 210, 230, 245, 255, 270];
+CreateBarChart(data);
+CreateLineChart(data);
+// SetTdEditble();

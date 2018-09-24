@@ -153,4 +153,22 @@ function generateNewTable() {
     }
 
     tableWrapper.innerHTML = str;
+    SetTdEditble();
+}
+
+tableWrapper.onmouseover = function(e) {
+    var e = e || window.event;
+    var target = e.target || e.srcElement;
+    if (target.tagName.toLowerCase() == 'td' && !isNaN(target.innerHTML)) {
+        var data = target.innerHTML;
+        target.innerHTML += '<span style="color:gray;" onclick="SetTdEditble(' + data + ',' + target + ')">  编辑</span>';
+    }
+}
+
+
+function SetTdEditble(data, target) {
+    if (target != undefined) {
+        target.innerHTML = "test";
+    }
+
 }
