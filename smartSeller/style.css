@@ -32,3 +32,8 @@ table td {
 #table-wrapper {
     clear: both;
 }
+
+td:after {
+    content: attr(data-edit);
+    /* font-size: 26px; */
+}

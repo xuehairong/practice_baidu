@@ -1,4 +1,4 @@
-let sourceData = [{
+let oldData = [{
     product: "手机",
     region: "华东",
     sale: [120, 100, 140, 160, 180, 185, 190, 210, 230, 245, 255, 270]
@@ -35,3 +35,31 @@ let sourceData = [{
     region: "华南",
     sale: [10, 40, 10, 6, 5, 6, 8, 6, 6, 6, 7, 26]
 }]
+
+var sourceData = oldData;
+// window.localStorage.data = sourceData;
+if (window.localStorage.data) {
+    alert(1);
+    sourceData = window.localStorage.data;
+}
+
+function saveData(pro, reg, tdIndex, tdValue) {
+    var array = [];
+    for (i in sourceData) {
+        var obj = {};
+        obj.product = sourceData[i].product;
+        obj.region = sourceData[i].region;
+        obj.sale = [];
+        for (j in sourceData[i].sale) {
+            if (sourceData[i].product == pro && sourceData[i].region == reg && j == tdIndex - 2) {
+                obj.sale.push(tdValue);
+                // sourceData[i].sale[tdIndex - 1] = tdValue;
+            } else {
+                obj.sale.push(sourceData[i].sale[j]);
+            }
+        }
+        array.push(obj);
+
+    }
+    window.localStorage.data = array;
+}
