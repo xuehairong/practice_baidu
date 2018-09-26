@@ -37,29 +37,37 @@ let oldData = [{
 }]
 
 var sourceData = oldData;
-// window.localStorage.data = sourceData;
-if (window.localStorage.data) {
-    alert(1);
-    sourceData = window.localStorage.data;
+// var str = JSON.stringify(sourceData);
+// localStorage.setItem("myData", str);
+if (localStorage.myData) {
+    var myData = localStorage.getItem("myData");
+    // console.log(JSON.parse(myData));
+    sourceData = JSON.parse(myData);
 }
 
 function saveData(pro, reg, tdIndex, tdValue) {
-    var array = [];
-    for (i in sourceData) {
-        var obj = {};
-        obj.product = sourceData[i].product;
-        obj.region = sourceData[i].region;
-        obj.sale = [];
-        for (j in sourceData[i].sale) {
-            if (sourceData[i].product == pro && sourceData[i].region == reg && j == tdIndex - 2) {
-                obj.sale.push(tdValue);
-                // sourceData[i].sale[tdIndex - 1] = tdValue;
-            } else {
-                obj.sale.push(sourceData[i].sale[j]);
-            }
-        }
-        array.push(obj);
+    // var array = [];
+    // for (i in sourceData) {
+    //     var obj = {};
+    //     obj.product = sourceData[i].product;
+    //     obj.region = sourceData[i].region;
+    //     obj.sale = [];
+    //     for (j in sourceData[i].sale) {
+    //         if (sourceData[i].product == pro && sourceData[i].region == reg && j == tdIndex - 2) {
+    //             obj.sale.push(tdValue);
+    //             // sourceData[i].sale[tdIndex - 1] = tdValue;
+    //         } else {
+    //             obj.sale.push(sourceData[i].sale[j]);
+    //         }
+    //     }
+    //     array.push(obj);
 
+    // }
+    // window.localStorage.data = array;
+    for (i in sourceData) {
+        if (sourceData[i].product == pro && sourceData[i].region == reg) {
+            sourceData[i].sale[tdIndex - 2] = tdValue;
+        }
     }
-    window.localStorage.data = array;
+    localStorage.myData = JSON.stringify(sourceData);
 }

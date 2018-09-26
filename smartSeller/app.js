@@ -26,6 +26,7 @@ createCheckBox('product-radio-wrapper', [{
 // productSelect.onchange = function() {
 //     generateTable();
 // }
+resetCheckBox();
 var data = [120, 100, 140, 160, 180, 185, 190, 210, 230, 245, 255, 270];
 CreateBarChart(data);
 CreateLineChart(data);
