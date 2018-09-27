@@ -33,3 +33,72 @@ Ball.prototype.draw = function() {
     ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
     ctx.fill();
 }
+Ball.prototype.update = function() {
+        //检查小球的x坐标是否大于画布的宽度（小球会从右边缘离开）。
+        if ((this.x + this.size) >= width) {
+            this.velX = -(this.velX);
+        }
+        //检查小球的x坐标是否小于0（小球会从左边缘离开）。
+        if ((this.x - this.size) <= 0) {
+            this.velX = -(this.velX);
+        }
+        // 检查小球的y坐标是否大于画布的高度（小球会从下边缘离开）。
+        if ((this.y + this.size) >= height) {
+            this.velY = -(this.velY);
+        }
+        // 检查小球的y坐标是否小于0（小球会从上边缘离开）。
+        if ((this.y - this.size) <= 0) {
+            this.velY = -(this.velY);
+        }
+
+        this.x += this.velX;
+        this.y += this.velY;
+    }
+    // 撞击侦察，从而小球会知道他们正在撞击
+Ball.prototype.collisionDetect = function() {
+    for (var j = 0; j < balls.length; j++) {
+        // 不是自己撞自己
+        if (!(this === balls[j])) {
+            var dx = this.x - balls[j].x;
+            var dy = this.y - balls[j].y;
+            var distance = Math.sqrt(dx * dx + dy * dy);
+            // 两个小球中心的距离是否小于两个小球的半径之和。代表相撞了
+            if (distance < this.size + balls[j].size) {
+                balls[j].color = this.color = 'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')';
+            }
+        }
+    }
+}
+var testBall = new Ball(50, 100, 4, 4, 'blue', 10);
+var balls = [];
+
+function loop() {
+    // 将整个画布的颜色设置成半透明的黑色。
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
+    // 画出一个填充满整个画布的矩形。这是在下一个视图画出来时用来遮住之前的视图的。
+    // 如果不这样做得话，你就会在屏幕上看到一条蛇的形状而不是小球的运动了。
+    // 用来填充的颜色设置成半透明的rgba(0,0,0,0.25)，也就是让之前的视图留下来一点点，
+    // 从而你可以看到小球运动时的尾巴。如果你将 0.25 设置成 1 时，你就完全看不到了。
+    // 试着改变其中的值查看造成的影响。
+    ctx.fillRect(0, 0, width, height);
+
+    while (balls.length < 25) {
+        var ball = new Ball(
+            random(0, width),
+            random(0, height),
+            random(-7, 7),
+            random(-7, 7),
+            'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')',
+            random(10, 20)
+        );
+        balls.push(ball);
+    }
+
+    for (var i = 0; i < balls.length; i++) {
+        balls[i].draw();
+        balls[i].update();
+        balls[i].collisionDetect();
+    }
+
+    requestAnimationFrame(loop);
+}
