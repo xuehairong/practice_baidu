@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //ES5
+        Array.prototype.remove = function(val) {
+            var index = this.indexOf(val);
+            if (index > -1) {
+                this.splice(index, 1);
+            }
+        };
+
+        function Restaurant(obj) {
+            this.cash = obj.cash;
+            this.seats = obj.seats;
+            this.staff = obj.staff;
+        }
+        Restaurant.prototype.hire = function(newStaff) {
+            this.staff.push(newStaff);
+        }
+        Restaurant.prototype.fire = function(oldStaff) {
+            this.staff.remove(oldStaff);
+        }
+
+        function Employee(name, wage) {
+            // this.id = id;
+            this.name = name;
+            this.wage = wage;
+        }
+        Employee.prototype.doneJob = function(job) {
+                alert('完成一次工作：' + job);
+            }
+            //服务员类
+        function Waiter(name, wage) {
+            // var jobContent = "上菜行为";
+            // if (Array.isArray(job)) {
+            //     jobContent = "记录客人点菜";
+            // }
+            Employee.call(this, name, wage);
+            this.instance = null;
+        }
+        Waiter.prototype = new Employee();
+        Waiter.getInstance = function(name, wage) {
+                if (this.instance) {
+                    this.instance = new Waiter(name, wage);
+                }
+                return this.instance;
+            }
+            //厨师类
+        function Cook(name, wage) {
+            Employee.call(this, name, wage);
+            this.instance = null;
+        }
+        Cook.prototype = new Employee();
+        Cook.getInstance = function(name, wage) {
+                if (this.instance) {
+                    this.instance = new Cook(name, wage);
+                }
+                return this.instance;
+            }
+            //顾客类
+        function Customer() {
+
+        }
+        Customer.prototype.order = function(foodList) {
+            console.log('点的菜为：' + foodList);
+        }
+        Customer.prototype.eat = function(eatFood) {
+            console.log('吃的菜为：' + eatFood);
+        }
+
+        function Food(name, cost, price) {
+            this.name = name;
+            this.cost = cost;
+            this.price = price;
+        }
+        /**开始运作餐厅**/
+        var Customers = ['a', 'b', 'c', 'd'];
+        var foods = [{
+            name: "红烧肉",
+            price: 25
+        }, {
+            name: "土豆丝",
+            price: 15
+        }, {
+            name: "青菜",
+            price: 10
+        }, {
+            name: "鸡腿",
+            price: 20
+        }];
+        var ifeRestaurant = new Restaurant({
+            cash: 0,
+            seats: 1,
+            staff: []
+        });
+
+        var Singleton = function(name) {
+            this.name = name;
+            this.instance = null;
+        };
+
+        Singleton.prototype.getName = function() {
+            alert(this.name);
+        };
+
+        Singleton.getInstance = function(name) {
+            if (!this.instance) {
+                this.instance = new Singleton(name);
+            }
+
+            return this.instance;
+        };
+
+        var a = Singleton.getInstance('seven1');
+        var b = Singleton.getInstance('seven2');
+
+        console.log(a);
+        console.log(a);
+
+        // var newCook = Cook.getInstance("Tony", 10000);
+        var newCook = new Cook("Tony", 10000);
+        console.log(newCook);
+        ifeRestaurant.hire(newCook);
+        var newWaiter = Waiter.getInstance("waiter1", 8000);
+        ifeRestaurant.hire(newWaiter);
+        while (Customers.length > 0) {
+            var i = Math.round(Math.random() * (foods.length - 1));
+            var customer = new Customer();
+            customer.order(foods[i].name);
+            Waiter.instance.doneJob(foods[i].name);
+            newCook.doneJob(foods[i].name);
+            newWaiter.doneJob('上菜' + foods[i].name);
+            customer.eat(foods[i].name);
+            Customers.shift();
+        }
+    </script>
+</body>
+
+</html>
