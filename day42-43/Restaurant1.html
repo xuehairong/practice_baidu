@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /**ES5
+                Array.prototype.remove = function(val) {
+                    var index = this.indexOf(val);
+                    if (index > -1) {
+                        this.splice(index, 1);
+                    }
+                };
+
+                function Restaurant(obj) {
+                    this.cash = obj.cash;
+                    this.seats = obj.seats;
+                    this.staff = obj.staff;
+                }
+                Restaurant.prototype.hire = function(newStaff) {
+                    this.staff.push(newStaff);
+                }
+                Restaurant.prototype.fire = function(oldStaff) {
+                    this.staff.remove(oldStaff);
+                }
+
+                function Employee(name, wage) {
+                    // this.id = id;
+                    this.name = name;
+                    this.wage = wage;
+                }
+                Employee.prototype.doneJob = function(job) {
+                    alert('完成一次工作：' + job);
+                }
+
+                function Waiter(name, wage, job) {
+                    var jobContent = "上菜行为";
+                    if (Array.isArray(job)) {
+                        jobContent = "记录客人点菜";
+                    }
+                    Employee.call(this, name, wage, jobContent);
+                }
+
+                function Cook(name, wage) {
+                    Employee.call(this, name, wage);
+                }
+                Cook.prototype = new Employee();
+
+                function Customer(foodList, eatFood) {
+
+                }
+                Customer.prototype.order = function() {
+                    alert('点的菜为：' + this.foodList);
+                }
+                Customer.prototype.eat = function() {
+                    alert('吃的菜为：' + this.eatFood);
+                }
+
+                function Food(name, cost, price) {
+                    this.name = name;
+                    this.cost = cost;
+                    this.price = price;
+                }**/
+        Array.prototype.remove = function(val) {
+            var index = this.indexOf(val);
+            if (index > -1) {
+                this.splice(index, 1);
+            }
+        };
+
+        class Restaurant {
+            constructor(obj) {
+                this.cash = obj.cash;
+                this.seats = obj.seats;
+                this.staff = obj.staff;
+            }
+            hire(newStaff) {
+                this.staff.push(newStaff);
+            }
+            fire(oldStaff) {
+                this.staff.remove(oldStaff);
+            }
+        }
+
+
+        class Employee {
+            constructor(name, wage) {
+                this.name = name;
+                this.wage = wage;
+                // this.id = id;
+            }
+            doneJob(job) {
+                alert('完成一次工作：' + job);
+            }
+        }
+        class Waiter extends Employee {
+            constructor(name, wage) {
+                super(name, wage);
+            }
+        }
+
+        // function Waiter(name, wage, job) {
+        //     var jobContent = "上菜行为";
+        //     if (Array.isArray(job)) {
+        //         jobContent = "记录客人点菜";
+        //     }
+        //     Employee.call(this, name, wage, jobContent);
+        // }
+        class Cook extends Employee {
+            constructor(name, wage) {
+                super(name, wage);
+            }
+        }
+
+        // function Customer(foodList, eatFood) {
+
+        // }
+        // Customer.prototype.order = function() {
+        //     alert('点的菜为：' + this.foodList);
+        // }
+        // Customer.prototype.eat = function() {
+        //     alert('吃的菜为：' + this.eatFood);
+        // }
+
+        // function Food(name, cost, price) {
+        //     this.name = name;
+        //     this.cost = cost;
+        //     this.price = price;
+        // }
+    </script>
+</body>
+
+</html>
