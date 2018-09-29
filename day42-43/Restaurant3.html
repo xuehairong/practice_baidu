@@ -92,19 +92,28 @@
             this.price = price;
         }
         /**开始运作餐厅**/
+        var timeUnit = 1000; //时间单位为1秒
+        function delaytime(count) {
+            var time_1 = new Date();
+            while (new Date() - time_1 < (timeUnit * count));
+        }
         var Customers = ['a', 'b', 'c', 'd'];
         var foods = [{
             name: "红烧肉",
-            price: 25
+            price: 25,
+            time: 2
         }, {
             name: "土豆丝",
-            price: 15
+            price: 15,
+            time: 1
         }, {
             name: "青菜",
-            price: 10
+            price: 10,
+            time: 1
         }, {
             name: "鸡腿",
-            price: 20
+            price: 20,
+            time: 2
         }];
         var ifeRestaurant = new Restaurant({
             cash: 0,
