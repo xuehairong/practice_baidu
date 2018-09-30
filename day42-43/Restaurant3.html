@@ -69,7 +69,7 @@
         Cook.prototype.doneJob = function(food) {
             return new Promise(function(resolve, reject) {
                 setTimeout(function() {
-                    console.log('厨师' + this.name + '正在烧' + food.name + '(' + time + 's)...');
+                    console.log('厨师' + this.name + '正在烧' + food.name + '(' + food.time + 's)...');
                     return (resolve(food));
                 }, food.time * timeUnit);
             })
@@ -157,11 +157,23 @@
             console.log("剩余座位：" + ifeRestaurant.seats);
         }
 
+        function loopCook(i, foodList) {
+            newCook.doneJob(foodList[i]).then(() => {
+                newWaiter.doneJob(foodList[i]);
+                i++;
+                if (i < foodList.length) {
+                    loopCook(i, foodList);
+                } else {
+                    console.log("所有菜品已完成");
+                }
+            });
+        }
 
         var newCook = Cook.getInstance("Tony", 10000);
         ifeRestaurant.hire(newCook);
         var newWaiter = Waiter.getInstance("waiter1", 8000);
         ifeRestaurant.hire(newWaiter);
+
         while (Customers.length > 0 && ifeRestaurant.seats > 0) {
             var customer = new Customer(Customers[0]);
             // var food = orderFood();
@@ -174,16 +186,7 @@
                 console.log(foodList);
                 newWaiter.doneJob(foodList);
                 var count = foodList.length;
-                console.log(count);
-                var i = 0;
-                var cook = newCook.doneJob(foodList[0]);
-                while (i < count) {
-                    i++;
-                    cook.then(newCook.doneJob(foodList[i]));
-                }
-                if (i >= count) {
-                    cook.then(console.log("厨师已完成所有的菜品"));
-                }
+                loopCook(0, foodList);
             });
 
             // newCook.doneJob(food.name);
