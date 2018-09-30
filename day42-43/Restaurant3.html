@@ -66,8 +66,14 @@
         }
         Cook.prototype = Object.create(Employee.prototype);
         Cook.prototype.constuctor = Cook;
-        Cook.prototype.doneJob = function(job) {
-            console.log('厨师' + this.name + '烧了一道' + job);
+        Cook.prototype.doneJob = function(food) {
+            return new Promise(function(resolve, reject) {
+                setTimeout(function() {
+                    console.log('厨师' + this.name + '正在烧' + food.name + '(' + time + 's)...');
+                    return (resolve(food));
+                }, food.time * timeUnit);
+            })
+
         }
         Cook.getInstance = function(name, wage) {
                 if (!this.instance) {
@@ -79,11 +85,29 @@
         function Customer(name) {
             this.name = name;
         }
-        Customer.prototype.order = function(foodList) {
-            console.log('点的菜为：' + foodList);
+
+        Customer.prototype.order = function() {
+            return new Promise(function(resolve, reject) {
+                console.log("顾客" + this.name + "正在点菜中(3s)...");
+                setTimeout(function() {
+                    var foodList = [];
+                    var count = Math.round(Math.random() * (foods.length - 1))
+                    while (count > 0) {
+                        var i = Math.round(Math.random() * (foods.length - 1));
+                        foodList.push(foods[i]);
+                        count--;
+                    }
+                    resolve(foodList);
+                }, 3 * timeUnit);
+            });
         }
-        Customer.prototype.eat = function(eatFood) {
-            console.log('吃的菜为：' + eatFood);
+        Customer.prototype.eat = function(food) {
+            return new Promise(function(resolve, reject) {
+                console.log("顾客" + this.name + "正在吃" + food.name + "(3s...)");
+                setTimeout(() => {
+                    resolve(food);
+                }, 3 * timeUnit);
+            })
         }
 
         function Food(name, cost, price) {
@@ -120,15 +144,10 @@
             seats: 1,
             staff: []
         });
-        //点一个菜
+        //入座
         function sitdown(customerName) {
             ifeRestaurant.seats--;
             console.log(customerName + "入座,剩余座位：" + ifeRestaurant.seats);
-        }
-
-        function orderFood() {
-            var i = Math.round(Math.random() * (foods.length - 1));
-            return foods[i];
         }
 
         function payBill(food) {
@@ -145,17 +164,33 @@
         ifeRestaurant.hire(newWaiter);
         while (Customers.length > 0 && ifeRestaurant.seats > 0) {
             var customer = new Customer(Customers[0]);
-            var food = orderFood();
+            // var food = orderFood();
             //入座
             sitdown(customer.name);
-            //服务员点菜
-            newWaiter.doneJob([food.name]);
-            customer.order(food.name);
-            newCook.doneJob(food.name);
-            // Waiter.instance.doneJob(food.name);           
-            newWaiter.doneJob('上菜' + food.name);
-            customer.eat(food.name);
-            payBill(food);
+            //点菜
+            var order = customer.order();
+            order.then(function(foodList) {
+                console.log("顾客点完菜了");
+                console.log(foodList);
+                newWaiter.doneJob(foodList);
+                var count = foodList.length;
+                console.log(count);
+                var i = 0;
+                var cook = newCook.doneJob(foodList[0]);
+                while (i < count) {
+                    i++;
+                    cook.then(newCook.doneJob(foodList[i]));
+                }
+                if (i >= count) {
+                    cook.then(console.log("厨师已完成所有的菜品"));
+                }
+            });
+
+            // newCook.doneJob(food.name);
+            // // Waiter.instance.doneJob(food.name);           
+            // newWaiter.doneJob('上菜' + food.name);
+            // customer.eat(food.name);
+            // payBill(food);
             Customers.shift();
         }
     </script>
