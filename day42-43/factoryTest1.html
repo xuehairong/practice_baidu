@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="UTF-8">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="js/factory.js"></script>
+    <script>
+        var Pet = new Interface("Pet", ["eat", "run", "sing", "register"]);
+        var PetShop = function() {};
+        PetShop.prototype = {
+            sellPet: function(kind) {
+                //宠物对象
+                var pet;
+                //宠物种类
+                switch (kind) {
+                    case 'dog':
+                        pet = new Dog();
+                        break;
+                    case 'cat':
+                        pet = new Cat();
+                        break;
+                    case 'pig':
+                        pet = new Pig();
+                        break;
+                    default:
+                        pet = new Bird();
+                }
+                //验证接口  
+                Interface.ensureImplement(pet, Pet); //判断pet对象是否全部实现接口Pet里面全部的方法    （对象，接口）
+                pet.eat();
+                pet.register();
+                return pet;
+            }
+        }
+
+        //基类  有共同的提出来
+        function basePet() {
+            this.register = function() {
+                document.write("宠物登记...<br>");
+            }
+            this.eat = function() {
+                document.write("宠物吃饭...<br>");
+            }
+        }
+
+        function Dog() {
+            Dog.superClass.constructor.call(this); //继承父类
+            //实现接口部分
+            this.run = function() {
+                document.write("小狗跑......<br>")
+            }
+            this.sing = function() {
+                document.write("小狗唱歌......<br>")
+            }
+        }
+
+        function Cat() {
+            Cat.superClass.constructor.call(this); //继承父类
+            //实现接口部分
+            this.run = function() {
+                document.write("小猫跑......<br>")
+            }
+            this.sing = function() {
+                document.write("小猫唱歌......<br>")
+            }
+        }
+
+        function Pig() {
+            Pig.superClass.constructor.call(this); //继承父类
+            //实现接口部分
+            this.run = function() {
+                document.write("小猪跑......<br>")
+            }
+            this.sing = function() {
+                document.write("小猪唱歌......<br>")
+            }
+        }
+
+        function Bird() {
+            Bird.superClass.constructor.call(this); //继承父类
+            //实现接口部分
+            this.run = function() {
+                document.write("小鸟跑......<br>")
+            }
+            this.sing = function() {
+                document.write("小鸟唱歌......<br>")
+            }
+        }
+        extend(Dog, basePet);
+        extend(Cat, basePet);
+        extend(Pig, basePet);
+        extend(Bird, basePet);
+
+
+        var newPetShop = new PetShop();
+        var flowerPig = newPetShop.sellPet("pig");
+        flowerPig.run();
+    </script>
+</body>
+
+</html>
