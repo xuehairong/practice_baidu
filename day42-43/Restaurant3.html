@@ -9,7 +9,10 @@
 </head>
 
 <body>
+    <div id="cash"></div>
+
     <script>
+        var cashWrapper = document.getElementById("cash");
         //ES5
         Array.prototype.remove = function(val) {
             var index = this.indexOf(val);
@@ -152,7 +155,8 @@
 
         function payBill(food) {
             ifeRestaurant.cash += parseFloat(food.price);
-            console.log("餐厅收入为：" + ifeRestaurant.cash);
+            cashWrapper.innerHTML = ifeRestaurant.cash;
+            // console.log("餐厅收入为：" + ifeRestaurant.cash);
             ifeRestaurant.seats++;
             console.log("剩余座位：" + ifeRestaurant.seats);
         }
@@ -160,6 +164,7 @@
         function loopCook(i, foodList) {
             newCook.doneJob(foodList[i]).then(() => {
                 newWaiter.doneJob(foodList[i]);
+
                 i++;
                 if (i < foodList.length) {
                     loopCook(i, foodList);
@@ -187,7 +192,7 @@
                 newWaiter.doneJob(foodList);
                 var count = foodList.length;
                 loopCook(0, foodList);
-            });
+            })
 
             // newCook.doneJob(food.name);
             // // Waiter.instance.doneJob(food.name);           

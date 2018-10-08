@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="ball" style="position: absolute;background: #000;width: 50px;height: 50px"></div> 输入小球移动后的位置： <input id="pos" /> <button id="moveBtn">开始移动</button>
+    <script type="text/javascript">
+        var ball = document.getElementById('ball'),
+            pos = document.getElementById('pos'),
+            moveBtn = document.getElementById('moveBtn');
+        var MoveCommand = function(receiver, pos) {
+            this.receiver = receiver;
+            this.pos = pos;
+        }
+        MoveCommand.prototype.execute = function() {
+            this.receiver.start('left', this.pos, 1000, 'strongEaseOut')
+        };
+        MoveCommand.prototype.undo = function() {
+            this.receiver.start('left', this.oldPos, 1000, 'strongEaseOut')
+        }
+        var moveCommand;
+        moveBtn.onclick = function() {
+            var animate = new Animate(ball);
+            moveCommand = new MoveCommand(animate, pos.value);
+            moveCommand.execute();
+        }
+        var Animate = function(dom) {
+            this.dom = dom;
+            this.startTime = 0;
+            this.startPos = 0;
+            this.endPos = 0;
+            this.propertyName = null;
+            this.easing = null;
+            this.duration = null;
+        }
+        Animate.prototype.start = function(propertyName, endPos, duration, easing) {
+            this.startTime = +new Date;
+            this.startPos = this.dom.getBoundingClientRect()[propertyName];
+            this.propertyName = propertyName;
+            this.endPos = endPos;
+            this.duration = duration;
+            // this.easing = tween[easing];
+            this.easing = easing;
+            var self = this;
+            var timeId = setInterval(function() {
+                if (self.step() === false) {
+                    clearInterval(timeId);
+                }
+            }, 19)
+        };
+        Animate.prototype.step = function() {
+            var t = +new Date;
+            if (t >= this.startTime + this.duration) {
+                this.update(this.endPos);
+                return false;
+            }
+            var pos = this.easing(t - this.startTime, this.startPos, this.endPos - this.startPos, this.duration);
+            this.update(pos)
+        }
+        Animate.prototype.update = function(pos) {
+            this.dom.style[this.propertyName] = pos + 'px';
+        }
+    </script>
+</body>
+
+</html>
