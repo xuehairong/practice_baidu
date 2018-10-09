@@ -33,23 +33,23 @@
             this.staff.remove(oldStaff);
         }
 
-        function Employee(name, wage) {
+        function Staff(name, wage) {
             // this.id = id;
             this.name = name;
             this.wage = wage;
         }
-        Employee.prototype.doneJob = function(job) {
+        Staff.prototype.work = function(job) {
                 console.log(this.name + '完成一次工作：' + job);
             }
             //服务员类
         function Waiter(name, wage) {
 
-            Employee.call(this, name, wage);
+            Staff.call(this, name, wage);
             this.instance = null;
         }
-        Waiter.prototype = Object.create(Employee.prototype);
+        Waiter.prototype = Object.create(Staff.prototype);
         Waiter.prototype.constuctor = Waiter;
-        Waiter.prototype.doneJob = function(job) {
+        Waiter.prototype.work = function(job) {
             var jobContent = "上菜行为";
             if (Array.isArray(job)) {
                 jobContent = "记录客人点菜";
@@ -64,12 +64,12 @@
             }
             //厨师类
         function Cook(name, wage) {
-            Employee.call(this, name, wage);
+            Staff.call(this, name, wage);
             this.instance = null;
         }
-        Cook.prototype = Object.create(Employee.prototype);
+        Cook.prototype = Object.create(Staff.prototype);
         Cook.prototype.constuctor = Cook;
-        Cook.prototype.doneJob = function(food) {
+        Cook.prototype.work = function(food) {
             return new Promise(function(resolve, reject) {
                 setTimeout(function() {
                     console.log('厨师' + this.name + '正在烧' + food.name + '(' + food.time + 's)...');
@@ -162,9 +162,9 @@
         }
 
         function loopCook(i, foodList) {
-            newCook.doneJob(foodList[i]).then(() => {
-                newWaiter.doneJob(foodList[i]);
-
+            newCook.work(foodList[i]).then(() => {
+                newWaiter.work(foodList[i]);
+                customer.eat(foodList[i]);
                 i++;
                 if (i < foodList.length) {
                     loopCook(i, foodList);
@@ -189,14 +189,14 @@
             order.then(function(foodList) {
                 console.log("顾客点完菜了");
                 console.log(foodList);
-                newWaiter.doneJob(foodList);
+                newWaiter.work(foodList);
                 var count = foodList.length;
                 loopCook(0, foodList);
             })
 
-            // newCook.doneJob(food.name);
-            // // Waiter.instance.doneJob(food.name);           
-            // newWaiter.doneJob('上菜' + food.name);
+            // newCook.work(food.name);
+            // // Waiter.instance.work(food.name);           
+            // newWaiter.work('上菜' + food.name);
             // customer.eat(food.name);
             // payBill(food);
             Customers.shift();
