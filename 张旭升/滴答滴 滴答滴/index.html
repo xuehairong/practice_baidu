@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>滴答滴 滴答滴</title>
+</head>
+
+<body>
+    <!-- <div id="test"> -->
+    <select id="year-select">
+        <option value="2015">2015</option>
+        <option value="2016">2016</option>
+        <option value="2017">2017</option>
+        <option value="2018">2018</option>
+        <option value="2019">2019</option>
+        <option value="2020">2020</option>
+        <option value="2021">2021</option>
+    </select>
+    <select id="month-select">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+    </select>
+    <select id="day-select">
+    </select>
+    <select id="hour-select">
+    </select>
+    <select id="minute-select">
+    </select>
+    <select id="second-select">
+    </select>
+    <!-- </div> -->
+    <p id="result-wrapper"></p>
+    <p id="result"></p>
+</body>
+<script>
+    (function () {
+        'use strict'
+        var yearSelect = document.getElementById('year-select');
+        var monthSelect = document.getElementById('month-select');
+
+        var daySelect = document.getElementById('day-select');
+        var hourSelect = document.getElementById('hour-select');
+        var minuteSelect = document.getElementById('minute-select');
+        var secondSelect = document.getElementById('second-select');
+
+        var selectTime = '2015-01-01 00:00:00';
+        var currentDate = {
+            yearValue: '2010',
+            monthValue: '01',
+            dayValue: '01',
+            hourValue: '00',
+            minuteValue: '00',
+            secondValue: '00'
+        }
+
+        var date = new Date();
+        init();
+
+        function init() {
+            print();
+            select();
+            renderResult();
+        }
+
+        //初始化页面
+        function select() {
+            //创建选中月份里的天数
+            renderDay(daySelect, 31, true);
+            renderDay(hourSelect, 23, false);
+            renderDay(minuteSelect, 59, false);
+            renderDay(secondSelect, 59, false);
+            dateJudge();
+        }
+
+        function renderResult() {
+
+            var body = document.getElementsByTagName("body")[0];
+            //没转换的时间
+            var yearValue = '';
+            var monthValue = '';
+            var dayValue = '';
+            var hourValue = '';
+            var minuteValue = '';
+            var secondValue = '';
+
+            //转换后的时间格式
+            var formatMonth = '';
+            var formatDay = '';
+
+            body.addEventListener('change', function (e) {
+                if (e.target.id === 'month-select' || e.target.id === 'year-select') {
+                    monthValue = selectValue(monthSelect);
+                    if (monthValue === '2') {
+                        if (leapYear()) {
+                            renderDay(daySelect, 29, true);
+                        } else {
+                            renderDay(daySelect, 28, true);
+                        }
+                    } else if (monthValue === '4' || monthValue === '6' || monthValue === '11') {
+                        renderDay(daySelect, 30, true);
+                    } else {
+                        renderDay(daySelect, 31, true);
+                    }
+                }
+                currentDate.yearValue = selectValue(yearSelect);
+                currentDate.monthValue = selectValue(monthSelect);
+                currentDate.dayValue = selectValue(daySelect);
+                currentDate.hourValue = selectValue(hourSelect);
+                currentDate.minuteValue = selectValue(minuteSelect);
+                currentDate.secondValue = selectValue(secondSelect);
+                // //格式转换
+
+                //判断时间
+            });
+        }
+        //日期相减
+        function dateJudge() {
+            var resultWrapper = document.getElementById('result-wrapper');
+            //连接时间
+            selectTime = currentDate.yearValue + '-' + currentDate.monthValue + '-' + currentDate.dayValue +
+                ' ' + currentDate.hourValue + ':' + currentDate.minuteValue + ':' + currentDate.secondValue;
+
+            var setData1 = Date.parse(selectTime);
+
+            // var setData2 = Date.parse('2018-05-20 21:10:23');
+
+            var setData2 = Date.parse(new Date());
+
+            var Dayseconds = Math.abs(setData1 - setData2) / (24 * 3600 * 1000);
+
+            var Days = parseInt(Dayseconds);
+            // console.log(Days);
+            var hoursSeconds = (Dayseconds - Days) * 24;
+            // console.log(hoursSeconds);
+
+            var hours = parseInt(hoursSeconds);
+            // console.log(hours);
+            var minutesSeconds = (hoursSeconds - hours) * 60;
+            // console.log(minutesSeconds);
+
+            var minutes = parseInt(minutesSeconds);
+            var seconds = (minutesSeconds - minutes) * 60;
+
+            seconds = parseInt(seconds);
+            if (setData1 - setData2 > 0) {
+                resultWrapper.innerHTML = '距离' + currentDate.yearValue + '年' + currentDate.monthValue + '月' +
+                    currentDate.dayValue + '日' + currentDate.hourValue + '小时 ' + currentDate.minuteValue +
+                    '分钟' + currentDate.secondValue + '秒 还有:' +
+                    Days + '天 ' + hours + '小时 ' + minutes + '分钟 ' + seconds + '秒 ';
+            } else {
+                resultWrapper.innerHTML = '距离' + currentDate.yearValue + '年' + currentDate.monthValue + '月' +
+                    currentDate.dayValue + '日' + currentDate.hourValue + '小时 ' + currentDate.minuteValue +
+                    '分钟' + currentDate.secondValue + '秒 过去:' +
+                    Days + '天 ' + hours + '小时 ' + minutes + '分钟 ' + seconds + '秒 ';
+            }
+            setTimeout(dateJudge, 1000);
+
+        }
+        //判断闰年
+        function leapYear() {
+            //获取选项中的值
+            var yearSelect = document.getElementById('year-select');
+            var yearValue = selectValue(yearSelect);
+            if (yearValue % 4 === 0 && yearValue % 100 !== 0 || yearValue % 400 === 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        //返回当前选择框的值
+        function selectValue(dom) {
+            var index = dom.selectedIndex;
+            return dom.options[index].value;
+
+        }
+        //渲染select选项true代表月，天。false代表小时，分钟，秒。
+        function renderDay(dom, lastDay, isTrue) {
+            var text = '';
+            dom.innerHTML = '';
+            if (isTrue) {
+                for (var i = 1; i <= lastDay; i++) {
+                    text += '<option value=' + i + '>' + i + '</option>';
+                }
+            } else {
+                for (var i = 1; i <= lastDay; i++) {
+                    i = format(i);
+                    text += '<option value=' + i + '>' + i + '</option>';
+                }
+            }
+            dom.innerHTML = text;
+        }
+        //格式
+        function format(varlue) {
+            varlue = varlue < 10 ? '0' + varlue : '' + varlue;
+            return varlue;
+        }
+        //星期
+        function week(judge) {
+            var weekObject = {
+                1: '一',
+                2: '二',
+                3: '三',
+                4: '四',
+                5: '五',
+                6: '六',
+                0: '七'
+            };
+            var weekObject2 = {
+                1: 'Monday',
+                2: 'Tuesday',
+                3: 'Wednesday',
+                4: 'Thursday',
+                5: 'Friday',
+                6: 'Saturday',
+                0: 'Sunday'
+            }
+            if (judge) {
+                var week = '星期' + weekObject[date.getDay()];
+            } else {
+                var week = weekObject2[date.getDay()];
+            }
+
+            return week;
+        }
+        //输出
+        function print() {
+            var p = document.getElementById('result');
+
+            var year = date.getFullYear();
+            var month = format(date.getMonth() + 1);
+            var day = format(date.getDay());
+            var hours = format(date.getHours());
+            var minutes = format(date.getMinutes());
+            var seconds = format(date.getSeconds());
+
+            var text1 = year + '年' + month + '月' + day + '日 ' + week(true) + ' ' + hours + ':' + minutes + ':' +
+                seconds;
+            var text2 = year + '-' + month + '-' + day + ' ' + week(false) + ' ' + hours + ':' + minutes + ':' +
+                seconds;
+            p.innerHTML = text1 + '<br>' + text2;
+        }
+    })();
+</script>
+
+</html>

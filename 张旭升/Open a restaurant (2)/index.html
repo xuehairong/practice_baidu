@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>开一家餐厅</title>
+
+</head>
+
+<body>
+    <script>
+        'use strict'
+        //ES5
+
+        //餐厅
+        function Restaurant(object) {
+            this.cash = object.cash;
+            this.seats = object.seats;
+            this.staff = object.staff;
+        }
+        Restaurant.prototype = {
+            constructor: Restaurant,
+            hire: function (value) {
+                this.staff.push(value);
+            },
+            fire: function (value) {
+                let index = this.staff.indexOf(value);
+                this.staff.splice(index, 1);
+            }
+        }
+        //职员
+        function Clerk(id, name, salary) {
+            this.id = id;
+            this.name = name;
+            this.salary = salary;
+        }
+        Clerk.prototype.finish = function () {
+            console.log('完成工作了！');
+        }
+
+        //服务单例模式
+        let singletonWaiter = (function () {
+            let instance = null;
+            //服务类
+            function Waiter(id, name, salary) {
+                Clerk.apply(this, arguments); //继承属性
+
+            }
+            //继承方法
+            extend(Waiter, Clerk);
+            //如果参数是个数组，则记录客人点菜，如果参数不是数组则是上菜行为
+            Waiter.prototype.work = function (value) {
+                if (Array.isArray(value)) {
+
+                    console.log('客人点了' + value[0].name + '，我要快给大厨报菜名！');
+                    return value;
+                } else {
+                    console.log('您要的' + value + '好了，您慢用！');
+                }
+            }
+            return {
+                getInstance: function (id, name, salary) {
+                    if (instance === null) {
+                        instance = new Waiter(id, name, salary);
+                    }
+                    return instance;
+                }
+            }
+        })();
+        //厨师单例模式
+        let singletonCook = (function () {
+            let instance = null;
+
+            function Cook(id, name, salary) {
+                Clerk.apply(this, arguments); //继承属性
+
+            }
+            extend(Cook, Clerk);
+            Cook.prototype.work = function (string) {
+                console.log('厨师开始做菜了！');
+                console.log('厨师做的' + string + '好了！');
+            }
+            return {
+                getInstance: function (id, name, salary) {
+                    if (instance === null) {
+                        instance = new Cook(id, name, salary);
+                    }
+                    return instance;
+                }
+            }
+        })();
+
+        //顾客类
+        function Customer(name) {
+            this.name = name;
+        }
+        Customer.prototype = {
+            constructor: Customer,
+            eat: function () {
+                console.log('吃吃吃吃！！');
+                console.log('吃完 了！');
+            },
+            order: function () { //点菜
+
+                console.log('你看，你吃什么菜，我们这有红烧肉、小酥肉、蒸熊掌！');
+                return Math.floor(Math.random() * 3);
+            },
+            seat: function () {
+                ifeRestaurant.seats--;
+                console.log('顾客' + this.name + '入座了！');
+                console.log('当前座位为：0');
+            },
+            leave: function (array) {
+
+                console.log('顾客' + this.name + '走了！');
+                array.shift();
+                ifeRestaurant.seats++;
+                console.log('-----------分割线----------');
+            }
+        }
+
+        //菜单
+        function Menu(name, costing, price) {
+            this.name = name;
+            this.costing = costing;
+            this.price = price;
+        }
+        Menu.prototype = {
+            constructor: Menu,
+        }
+        //空对象作为中介
+        function extend(Child, Parent) {
+            let F = function () {};
+            F.prototype = Parent.prototype;
+            Child.prototype = new F();
+            Child.prototype.constructor = Child;
+        }
+
+        //运行控制流程
+        function init() {
+            let cusArray = instanceCus();
+            let menu = instanceMenu();
+            let index = 0;
+            let array = [];
+            let timer = setInterval(function () {
+                let cus = cusArray[0];
+                //顾客入座
+                cus.seat();
+                //顾客点菜
+                let menuIndex = cus.order();
+                //服务员拿到点菜名单
+                array.push(menu[menuIndex]);
+                waiter.work(array);
+                //大厨做菜
+                cook.work(menu[menuIndex].name);
+                //服务员上菜
+                waiter.work(menu[menuIndex].name);
+                //顾客吃菜
+                cus.eat();
+                //顾客离开
+                cus.leave(cusArray);
+                if (index === 2) {
+                    clearInterval(timer);
+                }
+                index++;
+            }, 1000)
+
+        }
+        //构造实例
+        function instanceCus() {
+            let array = ['Tom', 'Tony', 'Robin'];
+            let customerArray = [];
+            for (let i = 0; i < array.length; i++) {
+                customerArray.push(new Customer(array[i]));
+            }
+            return customerArray;
+        }
+        //菜单实例
+        function instanceMenu() {
+            let menuArray = [];
+            let menu = [{
+                    name: '红烧肉',
+                    costing: 20,
+                    price: 35
+                },
+                {
+                    name: '小酥肉',
+                    costing: 25,
+                    price: 40
+                },
+                {
+                    name: '蒸熊掌',
+                    costing: 40,
+                    price: 60
+                }
+            ];
+            for (let i = 0; i < menu.length; i++) {
+                menuArray.push(new Menu(menu[i].name, menu[i].costing, menu[i].price));
+            }
+            return menuArray;
+        }
+
+        let ifeRestaurant = new Restaurant({
+            cash: 1000000,
+            seats: 20,
+            staff: []
+        });
+        let waiter = singletonWaiter.getInstance(1, '小张', 2000); //单例模式下的厨师和服务员
+        ifeRestaurant.staff.push(waiter);
+        let cook = singletonCook.getInstance(1, '张厨师', 5000);
+        ifeRestaurant.staff.push(cook);
+
+        init();
+    </script>
+</body>
+
+</html>

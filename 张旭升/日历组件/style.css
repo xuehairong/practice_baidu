@@ -1,0 +1,152 @@
+table {
+    text-align: center;
+    border-spacing: 0;
+    margin: 0 auto;
+    border-collapse: separate;
+}
+
+table caption {
+    background: rgb(200, 27, 1);
+    color: white;
+    font-size: 18px;
+    padding: 15px 0px 15px 0px;
+    /* text-align: center; */
+}
+
+table caption a {
+    text-decoration: none;
+    color: white;
+}
+
+table caption a[rel="prev"] {
+    float: left;
+    margin-left: 10px;
+}
+
+table caption a[rel="next"] {
+    float: right;
+    margin-right: 10px;
+}
+
+table th,
+table td {
+    margin: 0px;
+    padding: 0px;
+}
+
+table thead th {
+    /* border-bottom: 1px solid #a9bacb; */
+    font-size: 18px;
+    font-weight: bold;
+}
+
+table tbody td a {
+    color: #333;
+    cursor: pointer;
+    margin: 5px;
+    display: block;
+    text-decoration: none;
+    padding: 15px;
+}
+
+table tbody td a:hover,
+table tbody td a:focus,
+table tbody td a:active,
+.selected a:link,
+.selected a:visited,
+.selected a {
+    background: rgb(200, 27, 1);
+    color: white;
+}
+
+.dateContainer {
+    width: 370px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+
+.dateContainer input {
+    margin-left: 10px;
+    border-radius: 5px;
+    height: 20px;
+    border: 1px solid #999999;
+    width: 220px;
+    height: 40px;
+}
+
+.date {
+    width: 350px;
+    overflow: hidden;
+    border: 2px solid lightgray;
+    font-family: "微软雅黑";
+    margin: 0 auto;
+}
+
+.dateHide {
+    display: none;
+}
+
+.date p {
+    text-align: center;
+    margin: 0px;
+    padding: 5px;
+    background: rgb(200, 27, 1);
+    color: white;
+}
+
+.date p a {
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.date p a[rel="prev"] {
+    display: inline-block;
+    float: left;
+    padding-left: 10px;
+}
+
+.date p a[rel="next"] {
+    display: inline-block;
+    float: right;
+    padding-right: 10px;
+}
+
+.date span {
+    text-align: center;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 10px;
+    /* margin: 1px; */
+}
+
+.date .sun {
+    color: rgb(200, 27, 1);
+}
+
+.date .nowDay:hover,
+.date .selected {
+    background: rgb(200, 27, 1);
+    color: white;
+    cursor: pointer;
+}
+
+.date .selectedDay {
+    background: rgb(235, 244, 249);
+    cursor: pointer;
+}
+
+.date .prevNull,
+.date .nextNull {
+    /* background: #d0d9e2; */
+    color: #a4a4a4;
+    cursor: pointer;
+}
+
+.date button {
+    margin: 20px 0px 10px 65px;
+    width: 75px;
+    height: 35px;
+    ;
+}

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>开一家餐厅</title>
+</head>
+
+<body>
+    <script>
+        'use strict'
+        //ES5
+        // function Restaurant(object) {
+        //     this.cash = object.cash;
+        //     this.seats = object.seats;
+        //     this.staff = object.staff;
+        // }
+
+        // Restaurant.prototype = {
+        //     constructor: Restaurant,
+        //     hire: function (value) {
+        //         this.staff.push(value);
+        //     },
+        //     fire: function (value) {
+        //         let index = this.staff.indexOf(value);
+        //         this.staff.splice(index, 1);
+        //     }
+        // }
+
+        // function Clerk(id, name, salary) {
+        //     this.id = id;
+        //     this.name = name;
+        //     this.salary = salary;
+        // }
+        // Clerk.prototype.finishOneWork = function (type) {
+        //     switch (type) {
+        //         case 'clerk':
+
+        //             break;
+        //         case 'waiter':
+
+        //             break;
+        //         case 'cook':
+
+        //             break;
+        //         default:
+        //             break;
+        //     }
+        // }
+        // //服务类
+        // function Waiter() {
+        //     Clerk.apply(this, arguments); //继承属性
+        // }
+        // //继承方法
+        // extend(Waiter, Clerk);
+
+        // //厨师类
+        // function Cook() {
+        //     Clerk.apply(this, arguments); //继承属性
+        // }
+        // extend(Cook, Clerk);
+
+        // //顾客类
+        // function client() {
+
+        // }
+        // client.prototype.eat = function () {
+        //     console.log('吃吃吃吃！！');
+        // }
+        // client.prototype.order = function () {
+        //     console.log('快上菜');
+        // }
+
+        // function Menu(name, costing, price) {
+        //     this.name = name;
+        //     this.costing = costing;
+        //     this.price = price;
+        // }
+
+        // //空对象作为中介
+        // function extend(Child, Parent) {
+        //     let F = function () {};
+        //     F.prototype = Parent.prototype;
+        //     Child.prototype = new F();
+        //     Child.prototype.constructor = Child;
+        // }
+
+
+        //ES6
+        class Restaurant {
+            constructor(object) {
+                this.cash = object.cash;
+                this.seats = object.seats;
+                this.staff = object.staff;
+            }
+            hire(value) {
+                this.staff.push(value);
+            }
+            fire(value) {
+                let index = this.staff.indexOf(value);
+                this.staff.splice(index, 1);
+            }
+
+        }
+        //职员类
+        class Clerk {
+            constructor(id, name, salary) {
+                this.id = id;
+                this.name = name;
+                this.salary = salary;
+            }
+            finishOneWork(type) {
+                switch (type) {
+                    case 'clerk':
+
+                        break;
+                    case 'waiter':
+
+                        break;
+                    case 'cook':
+
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        //服务员类
+        class Waiter extends Clerk {
+            constructor(id, name, salary) {
+                super(id, name, salary);
+            }
+        }
+        //厨师
+        class Cook extends Clerk {
+            constructor(id, name, salary) {
+                super(id, name, salary);
+            }
+        }
+        //顾客
+        class Client extends Clerk {
+            eat() {
+                console.log('吃吃吃吃！！');
+            }
+            order() {
+                console.log('快上菜');
+            }
+        }
+        class Menu extends Clerk {
+            constructor(name, costing, price) {
+                this.name = name;
+                this.costing = costing;
+                this.price = price;
+            }
+        }
+    </script>
+</body>
+
+</html>

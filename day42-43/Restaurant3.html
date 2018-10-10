@@ -161,18 +161,7 @@
             console.log("剩余座位：" + ifeRestaurant.seats);
         }
 
-        function loopCook(i, foodList) {
-            newCook.work(foodList[i]).then(() => {
-                newWaiter.work(foodList[i]);
-                customer.eat(foodList[i]);
-                i++;
-                if (i < foodList.length) {
-                    loopCook(i, foodList);
-                } else {
-                    console.log("所有菜品已完成");
-                }
-            });
-        }
+
 
         var newCook = Cook.getInstance("Tony", 10000);
         ifeRestaurant.hire(newCook);
@@ -192,7 +181,7 @@
                 newWaiter.work(foodList);
                 var count = foodList.length;
                 loopCook(0, foodList);
-            })
+            });
 
             // newCook.work(food.name);
             // // Waiter.instance.work(food.name);           
@@ -200,6 +189,19 @@
             // customer.eat(food.name);
             // payBill(food);
             Customers.shift();
+        }
+
+        function loopCook(i, foodList) {
+            newCook.work(foodList[i]).then(() => {
+                newWaiter.work(foodList[i]);
+                customer.eat(foodList[i]);
+                i++;
+                if (i < foodList.length) {
+                    loopCook(i, foodList);
+                } else {
+                    console.log("所有菜品已完成");
+                }
+            });
         }
     </script>
 </body>

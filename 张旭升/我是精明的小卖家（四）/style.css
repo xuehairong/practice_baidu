@@ -1,0 +1,93 @@
+#selected {
+    margin-bottom: 10px;
+}
+
+#table-wrapper {
+    margin: 0 auto;
+    width: 80%;
+}
+
+#table-wrapper table {
+    border-collapse: collapse;
+    text-align: center;
+    /* padding: 5px; */
+}
+
+#table-wrapper th {
+    background: black;
+    color: white;
+}
+
+#table-wrapper table th,
+#table-wrapper table td {
+    border: 1px solid #ccc;
+    height: 52px;
+    width: 55px;
+}
+
+/* #table-wrapper table td {
+    border: 0px;
+} */
+
+#table-wrapper table th {
+    padding: 6px;
+}
+
+.pattern {
+    overflow: hidden;
+    width: 1300px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+#canvas {
+    float: left;
+}
+
+#svgContent {
+    float: right;
+}
+
+#table-wrapper input {
+    text-align: center;
+    width: 60px;
+    margin: 0px;
+    height: 25px;
+    float: left;
+}
+
+#submit {
+    /* margin-right: 185px; */
+    float: right;
+    margin: 20px 200px 20px 0px;
+    padding: 5px 10px 5px 10px;
+    border: 1px;
+    background: rgb(174, 192, 243);
+    border-radius: 5px;
+}
+
+.ion-edit {
+    display: none;
+    float: right;
+}
+
+#table-wrapper table td:hover .ion-edit {
+    display: block;
+}
+
+#table-wrapper table td:hover {
+    background: url(pencil.svg) no-repeat;
+    background-position: 0% 0%;
+    background-size: 20px;
+}
+
+#table-wrapper table td[rowspan]:hover,
+#table-wrapper table td[td-sign]:hover {
+    background: none;
+}
+
+#confirm,
+#cancel {
+    float: left;
+    padding: 0px;
+}

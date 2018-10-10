@@ -1,0 +1,210 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>开一家餐厅</title>
+    <style>
+        #restaurant {
+            width: 100%;
+            height: 500px;
+            border: 1px solid black;
+        }
+
+        #cook-room {
+            float: left;
+            width: 300px;
+            height: 500px;
+            background: #00FFFF;
+        }
+
+        .cook,
+        .waiter,
+        .dinner-table {
+            height: 150px;
+            width: 150px;
+            /* float: left; */
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
+
+        .cook {
+            top: 55px;
+            left: 180px;
+        }
+
+        .cookLi,
+        .cookTime {
+            list-style: none;
+            /* float: left; */
+        }
+
+        .waiter-animation-cus {
+            animation: waiterMoveCus 0.5s;
+            animation-fill-mode: forwards;
+        }
+
+        .waiter-animation-cook {
+            animation: waiterMoveCook 0.5s;
+            animation-fill-mode: forwards;
+            top: 250px;
+            left: 250px;
+        }
+
+        #waiter-speak,
+        #cook-speak,
+        #customer-speak,
+        #cook-time {
+            display: block;
+            text-align: center;
+            background: white;
+            border-radius: 5px;
+            width: 130px;
+        }
+        #cook-time {
+            margin-top: 5px;
+        }
+        .cookFinish {
+            margin-left: 10px;
+            color: green;
+        }
+        @keyframes waiterMoveCus {
+            0% {
+                top: 55px;
+                left: 0px;
+            }
+            50% {
+                top: 250px;
+                left: 0px;
+            }
+            100% {
+                top: 250px;
+                left: 250px;
+
+            }
+        }
+
+        @keyframes waiterMoveCook {
+            0% {
+                top: 250px;
+                left: 250px;
+            }
+            50% {
+                top: 250px;
+                left: 0px;
+            }
+            100% {
+                top: 55px;
+                left: 0px;
+            }
+        }
+
+        /*图片大小*/
+
+        .imgSize {
+            height: 150px;
+            width: 150px;
+        }
+
+        #food-room {
+            float: left;
+            width: 700px;
+            height: 500px;
+            position: relative;
+            background: #F0E68C;
+        }
+
+        .dinner-table {
+            top: 270px;
+            left: 340px;
+        }
+
+        #cash {
+            width: 330px;
+            height: 100px;
+            float: left;
+            background: greenyellow;
+        }
+
+        #customer-queues {
+            width: 330px;
+            height: 900px;
+            float: left;
+            position: relative;
+
+        }
+
+        .customer {
+            height: 150px;
+            width: 150px;
+            position: absolute;
+            animation: customerMove 1s;
+            animation-fill-mode: forwards;
+            top: 0px;
+            right: 200px;
+        }
+
+        @keyframes customerMove {
+            0% {
+                top: 0px;
+                right: 200px;
+            }
+            50% {
+                top: 180px;
+                right: 200px;
+            }
+            100% {
+                top: 180px;
+                right: 420px;
+
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="restaurant">
+        <div id="cook-room">
+            <h4>厨师房间</h4>
+            <div class="cook">
+                <span id="cook-speak">空闲</span>
+                <span id="cook-time"></span>
+                <img class="imgSize" src="image/cook.png" alt="">
+            </div>
+        </div>
+        <div id="food-room">
+            <h4>吃饭的房间</h4>
+            <div class="waiter">
+                <span id="waiter-speak"></span>
+                <img class="imgSize" src="image/waiter.png" alt="">
+            </div>
+            <div class="dinner-table">
+
+                <img class="imgSize" src="image/true (4).png" alt="">
+            </div>
+        </div>
+        <div id="cash">
+            <span>金额数量为：</span>
+            <span id="cash-number"></span>
+        </div>
+        <div id="customer-queues">
+            <div class="customer">
+                <span id="customer-speak"></span>
+                <img class="imgSize" src="image/customer.png" alt="">
+            </div>
+
+        </div>
+    </div>
+    <script src="extend.js"></script>
+    <script src="restaurant.js"></script>
+    <script src="customer.js"></script>
+    <script src="cookWaiter.js"></script>
+    <script src="factory.js"></script>
+    <script src="index.js"></script>
+
+</body>
+
+</html>

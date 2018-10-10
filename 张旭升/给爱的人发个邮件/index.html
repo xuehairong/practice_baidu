@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .wrapper {
+            width: 20%;
+            margin: 0 auto;
+        }
+        .email-sug {
+            margin-left: 50px;
+        }
+        .email-sug li {
+            list-style: none;
+            width: 173px;
+        }
+
+        .email-sug li:hover {
+            background: #FFC1E0;
+            cursor: pointer;
+        }
+
+        .select-li {
+            background: #CAFFFF;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <label>邮箱：</label><input autofocus id="email-input" type="text" >
+        <ul id="email-sug-wrapper" class="email-sug"></ul>
+
+    </div>
+</body>
+<script>
+    let nowSelectTipIndex = 0;
+    let input = document.getElementById('email-input');
+    let wrapper = document.getElementsByClassName('wrapper')[0];
+    let ul = document.getElementById('email-sug-wrapper');
+
+    input.addEventListener('input', function (e) {
+        addPrompt();
+        ulStatus();
+    });
+    input.addEventListener('keyup', function (e) {
+        var li = ul.getElementsByTagName('li');
+        if (e.keyCode === 13) {
+            input.value = li[nowSelectTipIndex].innerText;
+            hide();
+        }
+        if (e.keyCode === 38) {
+            if (nowSelectTipIndex === 0) {
+                nowSelectTipIndex = li.length - 1;
+            } else {
+                nowSelectTipIndex--;
+            }
+            addPrompt();
+        }
+        if (e.keyCode === 40) {
+            if (nowSelectTipIndex < li.length - 1) {
+                nowSelectTipIndex++;
+            } else {
+                nowSelectTipIndex = 0;
+            }
+            addPrompt();
+        }
+        if (e.keyCode === 27) {
+            //全选事件
+            input.select();
+        }
+    });
+    wrapper.addEventListener('click', function (e) {
+        if (e.target.nodeName === 'LI') {
+            input.value = htmlDecode(e.target.innerText);
+            hide();
+            //input获得焦点事件
+            input.focus();
+        }
+    });
+    //返回用户输入的值
+    function inputValue() {
+        let value = input.value.trim();
+        return value;
+    }
+
+    function joinString() {
+        let postfixList = ['163.com', 'gmail.com', '126.com', 'qq.com', '263.net'];
+        let value = inputValue();
+        let li = '';
+        let preFix = '';
+        let postFix = '';
+
+        let index = value.indexOf('@');
+        if (index !== -1) {
+            preFix = value.slice(0, index);
+            postFix = value.slice(index + 1);
+        } else {
+            preFix = value;
+        }
+        //需要注意的是indexOf对''匹配永远为true
+        let array = [];
+        let number = 0;
+        for (let i = 0; i < postfixList.length; i++) {
+            if (postfixList[i].indexOf(postFix) === 0) {
+                li = preFix + '@' + postfixList[i];
+                array.push(li);
+            }
+        }
+        //如果匹配不到任何后缀，则全部显示
+        if (array.length === 0) {
+            for (let i = 0; i < postfixList.length; i++) {
+                li = preFix + '@' + postfixList[i];
+                array.push(li);
+            }
+        }
+        return array;
+    }
+    //添加到选择框中
+    function addPrompt() {
+        let array = joinString();
+        let text = '';
+        for (let i = 0; i < array.length; i++) {
+            text += '<li>' + htmlEncode(array[i]) + '</li>';
+            // console.log(htmlEncode(array[i]));
+        }
+        ul.innerHTML = text;
+        let li = document.getElementsByTagName('li');
+
+        if (nowSelectTipIndex > li.length - 1) {
+            nowSelectTipIndex = 0;
+        }
+        li[nowSelectTipIndex].className = 'select-li';
+
+    }
+    //状态变化，隐藏或者显示
+    function ulStatus() {
+
+        let value = inputValue();
+        // console.log(value);
+        if (value === '') {
+            hide();
+        } else {
+            show();
+        }
+    }
+
+    function hide() {
+        ul.style.display = 'none';
+    }
+
+    function show() {
+        ul.style.display = 'block';
+    }
+
+    function htmlEncode(html) {
+        //1.首先动态创建一个容器标签元素，如DIV
+        var temp = document.createElement("div");
+        //2.然后将要转换的字符串设置为这个元素的innerText(ie支持)或者textContent(火狐，google支持)
+        (temp.textContent != undefined) ? (temp.textContent = html) : (temp.innerText = html);
+        // console.log(temp.textContent);
+        //3.最后返回这个元素的innerHTML，即得到经过HTML编码转换的字符串了
+        // console.log(temp.innerHTML);
+        var output = temp.innerHTML;
+        temp = null;
+        return output;
+    }
+
+    function htmlDecode(text) {
+        //1.首先动态创建一个容器标签元素，如DIV
+        var temp = document.createElement("div");
+        //2.然后将要转换的字符串设置为这个元素的innerHTML(ie，火狐，google都支持)
+        temp.innerHTML = text;
+        //3.最后返回这个元素的innerText(ie支持)或者textContent(火狐，google支持)，即得到经过HTML解码的字符串了。
+        var output = temp.innerText || temp.textContent;
+        // console.log(output);
+        temp = null;
+        return output;
+    }
+</script>
+
+</html>

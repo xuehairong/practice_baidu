@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<body>
+    <button id="a">A</button>
+    <button id="b">B</button>
+    <button id="c">C</button>
+
+    <button id="d">D</button>
+    <button id="e">E</button>
+    <button id="f">F</button>
+
+    <div id="contABC"></div>
+    <div id="contDEF"></div>
+    <script>
+        init();
+
+        function init() {
+            render();
+        }
+
+        let buttonArray = document.getElementsByTagName('button');
+        let value = parseHash();
+        let abc = value || '',
+            def = value || '';
+        if (abc !== '') {
+            abc = abc.slice(0, 1);
+            def = def.slice(1, 2);
+        }
+        for (let i = 0; i < buttonArray.length; i++) {
+            //这里不需要使用闭包了，因为let的原因
+            buttonArray[i].onclick = function () {
+                if (['a', 'b', 'c'].indexOf(buttonArray[i].id) !== -1) {
+                    abc = buttonArray[i].id;
+                } else {
+                    def = buttonArray[i].id;
+                }
+                let value = abc + def;
+                if (value.length === 3) {
+                    value = value.slice(0, 2);
+                }
+                window.history.pushState(null, null, '?' + value);
+                render();
+            }
+        }
+
+        function parseHash() {
+            let value = window.location.href.split('?')[1];
+            // if (value.length === 3) {
+            //     value = value.slice(0, 2);
+            // }
+            return value;
+        }
+
+        function render() {
+            let value = parseHash() || '';
+            let dom;
+            let contABC = document.getElementById('contABC');
+            let contDEF = document.getElementById('contDEF');
+            //处理边界
+            if (value.length === 0) {
+                return;
+            } else if (value.length === 1) {
+                if (['a', 'b', 'c'].indexOf(value) !== -1) {
+                    contABC.innerHTML = document.getElementById(value).innerHTML;
+                    contDEF.innerHTML = '';
+                } else {
+                    contABC.innerHTML = '';
+                    contDEF.innerHTML = document.getElementById(value).innerHTML;
+                }
+            } else {
+                contABC.innerHTML = document.getElementById(value.slice(0, 1)).innerHTML;
+                contDEF.innerHTML = document.getElementById(value.slice(1, 2)).innerHTML;
+            }
+
+        }
+
+        window.onpopstate = function () {
+            render();
+        }
+    </script>
+</body>
+
+</html>

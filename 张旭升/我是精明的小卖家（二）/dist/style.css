@@ -1,0 +1,19 @@
+#table-wrapper {
+    margin: 0 auto;
+    width: 50%;
+    
+}
+#table-wrapper table {
+    border-collapse: collapse;
+    text-align: center;
+    /* padding: 5px; */
+}
+#table-wrapper th {
+    background: black;
+    color: white;
+}
+#table-wrapper table th,
+#table-wrapper table td {
+    border: 1px solid #ccc;
+    padding: 6px;
+}

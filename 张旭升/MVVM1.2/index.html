@@ -1,0 +1,18 @@
+<html>
+<body>
+<p></p>
+<script src="https://unpkg.com/san@latest/dist/san.dev.js"></script>
+<script>
+    var MyApp = san.defineComponent({
+        template: '<p>Hello {{name}}!</p>',
+        initData: function () {
+            return {
+                name: 'World'
+            };
+        }
+    });
+    var MyApp = new MyApp();
+    MyApp.attach(document.body);
+</script>
+</body>
+</html>
