@@ -44,41 +44,46 @@
 
      main();
 
-     //  function test(array) {
-     //      let time = array[0];
-     //      return new Promise(function (resolve, reject) {
-     //          let timer = setInterval(function() {
-     //              if (time === 0) {
-     //                  console.log('吃完了！');
-     //                  clearInterval(timer);
+     function test(array) {
+         let time = array[0];
+         return new Promise(function(resolve, reject) {
+             let timer = setInterval(function() {
+                 if (time === 0) {
+                     //   console.log('吃完了！');
+                     clearInterval(timer);
+                     array.shift();
+                     resolve(array);
+                 } else {
+                     console.log('还剩下：' + time + '秒 吃完');
+                     time--;
+                 }
+             }, 1000);
+             // setTimeout(() => {
+             //     console.log(time+'begin');
+             //     resolve(time+'ok');
+             // }, time);
 
-     //              } else {
-     //                  console.log('还剩下：' + time + '秒 吃完');
-     //                  time--;
-     //              }
-     //          }, 1000);
-     //          // setTimeout(() => {
-     //          //     console.log(time+'begin');
-     //          //     resolve(time+'ok');
-     //          // }, time);
+         });
+     }
+     //let promise = test([3,5,7]);
+     test([3, 5, 7]).then(
+         function(foodList) {
+             console.log(foodList);
+             console.log('吃完了！')
+         }
+     );
+     //   .then(test([5, 7]))
 
-     //      });
-     //  }
-     //  //let promise = test([3,5,7]);
-     //  test([3, 5, 7])
-     //      .then(test([5, 7]))
-
-     //  function queue2(array) {
-     //      // let object = {
-     //      //     array: array
-     //      // }
-     //      let promise = Promise.resolve(array);
-     //      for (let i = 0; i < array.length; i++) {
-     //          promise = promise
-     //              .then(test);
-     //          // .then(function(result) {
-     //          //     console.log(result);
-     //          // });
-     //      }
-     //  }
-     //  queue2([3, 5, 7])
+     function queue2(array) {
+         // let object = {
+         //     array: array
+         // }
+         let promise = test(array);
+         for (let i = 1; i < array.length; i++) {
+             promise = promise
+                 .then(function(result) {
+                     console.log(result);
+                     test(result);
+                 });
+         }
+     }
