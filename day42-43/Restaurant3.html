@@ -49,12 +49,13 @@
         }
         Waiter.prototype = Object.create(Staff.prototype);
         Waiter.prototype.constuctor = Waiter;
-        Waiter.prototype.work = function(job) {
-            var jobContent = "上菜行为";
-            if (Array.isArray(job)) {
-                jobContent = "记录客人点菜";
+        Waiter.prototype.work = function(obj) {
+            if (Array.isArray(obj)) {
+                console.log('服务员' + this.name + "记录客人点菜");
+            } else {
+                console.log('服务员' + this.name + "上菜：" + obj.food.name);
+                return obj;
             }
-            console.log('服务员' + this.name + jobContent);
         }
         Waiter.getInstance = function(name, wage) {
                 if (!this.instance) {
@@ -69,11 +70,16 @@
         }
         Cook.prototype = Object.create(Staff.prototype);
         Cook.prototype.constuctor = Cook;
-        Cook.prototype.work = function(food) {
+        Cook.prototype.work = function(foodList) {
+            var food = foodList[0];
+            var obj = {
+                food: food,
+                foodList: foodList
+            }
             return new Promise(function(resolve, reject) {
                 setTimeout(function() {
                     console.log('厨师' + this.name + '正在烧' + food.name + '(' + food.time + 's)...');
-                    return (resolve(food));
+                    return (resolve(obj));
                 }, food.time * timeUnit);
             })
 
@@ -104,12 +110,13 @@
                 }, 3 * timeUnit);
             });
         }
-        Customer.prototype.eat = function(food) {
+        Customer.prototype.eat = function(obj) {
             return new Promise(function(resolve, reject) {
-                console.log("顾客" + this.name + "正在吃" + food.name + "(3s...)");
+                console.log("顾客" + this.name + "正在吃" + obj.food.name + "(3s...)");
                 setTimeout(() => {
-                    resolve(food);
+
                 }, 3 * timeUnit);
+                resolve(obj.foodList);
             })
         }
 
@@ -179,8 +186,15 @@
                 console.log("顾客点完菜了");
                 console.log(foodList);
                 newWaiter.work(foodList);
-                var count = foodList.length;
-                loopCook(0, foodList);
+                let p = new Promise(function(resolve, reject) {
+                    resolve(foodList)
+                });
+                foodList.forEach(element => {
+                    p = p.then(newCook.work).then(newWaiter.work).then(customer.eat);
+                });
+
+                // var count = foodList.length;
+                // loopCook(0, foodList);
             });
 
             // newCook.work(food.name);
@@ -191,18 +205,18 @@
             Customers.shift();
         }
 
-        function loopCook(i, foodList) {
-            newCook.work(foodList[i]).then(() => {
-                newWaiter.work(foodList[i]);
-                customer.eat(foodList[i]);
-                i++;
-                if (i < foodList.length) {
-                    loopCook(i, foodList);
-                } else {
-                    console.log("所有菜品已完成");
-                }
-            });
-        }
+        // function loopCook(i, foodList) {
+        //     newCook.work(foodList[i]).then(() => {
+        //         newWaiter.work(foodList[i]);
+        //         customer.eat(foodList[i]);
+        //         i++;
+        //         if (i < foodList.length) {
+        //             loopCook(i, foodList);
+        //         } else {
+        //             console.log("所有菜品已完成");
+        //         }
+        //     });
+        // }
     </script>
 </body>
 
