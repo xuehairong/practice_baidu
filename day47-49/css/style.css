@@ -1,0 +1,36 @@
+html,
+body,
+#cookroom,
+#eatroom,
+#outroom {
+    height: 100%;
+    margin: 0;
+}
+
+#cookroom {
+    width: 30%;
+    float: left;
+    background-color: #CCCCFF;
+}
+
+#cookroom div,
+#cookroom img {
+    float: left;
+}
+
+#eatroom {
+    width: 40%;
+    float: left;
+    background-color: #CCFFCC;
+}
+
+#eatroom div,
+#eatroom img {
+    float: left;
+}
+
+#outroom {
+    width: 30%;
+    float: right;
+    background-color: antiquewhite;
+}
