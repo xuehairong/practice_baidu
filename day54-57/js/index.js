@@ -1,5 +1,5 @@
 //世界杯决赛阶段：长度105米（约115码），宽度68米（约74码）
-var footballField = new FootballField(0.6, 1)
+var footballField = new FootballField(68, 105)
 
 function CreateCanvas() {
     var wrapper = document.getElementById('footballFieldWrapper')

@@ -2,6 +2,11 @@ function FootballField(width, length) {
     this.width = m2px(width),
         this.length = m2px(length)
 }
+
+function Footballer(VNum, r) {
+    this.VNum = VNum;
+    this.r = m2px(r);
+}
 //根据米算DPI
 function m2px(m) {
     var dpi = getDPI();
