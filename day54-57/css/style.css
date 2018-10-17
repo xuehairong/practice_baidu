@@ -2,3 +2,9 @@
     width: 1000px;
     height: 1000px;
 }
+
+#footballer {
+    /* top: 100px; */
+    -webkit-transition: all 6s cubic-bezier(0.47, 0, 0.745, 0.715);
+    transition: all 6s cubic-bezier(0.47, 0, 0.745, 0.715);
+}

@@ -2,12 +2,42 @@ function FootballField(width, length) {
     this.width = m2px(width),
         this.length = m2px(length)
 }
-
-function Footballer(VNum, r) {
+//参数：速度，直径，根据球场的缩放比例
+function Footballer(id, VNum, r, bl) {
+    this.id = id;
     this.VNum = VNum;
     this.r = m2px(r);
+    this.bl = bl;
 }
-//根据米算DPI
+
+Footballer.prototype.GetDom = function() {
+    var chart = document.createElement("canvas");
+    chart.id = this.id;
+    chart.style.position = "absolute";
+    chart.style.left = 0;
+    chart.style.top = 0;
+    if (this.bl > 1) { this.bl = 1; }
+    chart.width = this.r * this.bl;
+    chart.height = this.r * this.bl;
+
+    if (chart.getContext) {
+        var ctx = chart.getContext('2d');
+        ctx.beginPath();
+        ctx.arc(chart.width / 2, chart.width / 2, chart.width / 2, 0, 2 * Math.PI);
+        ctx.fillStyle = "red";
+        ctx.fill();
+    }
+    return chart;
+}
+Footballer.prototype.Run = function(x, y) {
+    let chart = document.getElementById(this.id);
+    chart.style.left = x + 'px';
+    chart.style.top = y + 'px';
+}
+Footballer.prototype.Init = function(x, y) {
+
+    }
+    //根据米算DPI
 function m2px(m) {
     var dpi = getDPI();
     var pixel = parseFloat(m) / 25.4 * dpi[0] * 1000; //只计算x轴的dPI

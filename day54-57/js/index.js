@@ -18,10 +18,10 @@ function CreateCanvas() {
         chart.height = wrapper.clientHeight;
         chart.width = chart.height * realBL;
     }
+    var bl = chart.width / footballField.length; //球场的缩放比例
     // var rectWidth = footballField.length * chartBL; //计算出矩形的宽度
     // var rectHeight = rectWidth * realBL; //计算出矩形的长度
-    var footballFieldWrapper = document.getElementById('footballFieldWrapper');
-    footballFieldWrapper.appendChild(chart);
+
     if (chart.getContext) {
         var marginX = 40;
         var marginY = 20;
@@ -57,6 +57,12 @@ function CreateCanvas() {
         ctx.strokeStyle = "#FFF";
         ctx.stroke();
     }
+    var footballFieldWrapper = document.getElementById('footballFieldWrapper');
+    footballFieldWrapper.appendChild(chart);
+    var fb = new Footballer('footballer', 0, 2, bl);
+    footballFieldWrapper.appendChild(fb.GetDom());
+
+    fb.Run(100, 200);
 }
 
 console.log("dpi:" + getDPI());
