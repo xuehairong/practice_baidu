@@ -7,16 +7,14 @@ function Footballer(id, VNum, r, bl) {
     this.id = id;
     this.VNum = VNum;
     this.r = m2px(r);
+    if (bl > 1) { bl = 1; }
     this.bl = bl;
-}
-
-Footballer.prototype.GetDom = function() {
     var chart = document.createElement("canvas");
     chart.id = this.id;
     chart.style.position = "absolute";
-    chart.style.left = 0;
-    chart.style.top = 0;
-    if (this.bl > 1) { this.bl = 1; }
+    // chart.style.left = '19px';
+    // chart.style.top = '19px';
+
     chart.width = this.r * this.bl;
     chart.height = this.r * this.bl;
 
@@ -27,15 +25,27 @@ Footballer.prototype.GetDom = function() {
         ctx.fillStyle = "red";
         ctx.fill();
     }
-    return chart;
+    chart.onclick = function() {
+        chart.style.left = "800px";
+        chart.style.top = "400px";
+    }
+    this.dom = chart;
 }
+
+// Footballer.prototype.GetDom = function() {
+
+//     return chart;
+// }
 Footballer.prototype.Run = function(x, y) {
-    let chart = document.getElementById(this.id);
-    chart.style.left = x + 'px';
-    chart.style.top = y + 'px';
+    this.dom.style.left = (m2px(x) * this.bl) + 'px';
+    this.dom.style.top = (m2px(y) * this.bl) + 'px';
 }
 Footballer.prototype.Init = function(x, y) {
-
+        console.log(this.dom);
+        console.log(m2px(x) * this.bl);
+        console.log(m2px(y) * this.bl);
+        this.dom.style.left = (m2px(x) * this.bl) + 'px';
+        this.dom.style.top = (m2px(y) * this.bl) + 'px';
     }
     //根据米算DPI
 function m2px(m) {
@@ -56,7 +66,6 @@ function getDPI() {
         arrDPI[0] = parseInt(tmpNode.offsetWidth);
         arrDPI[1] = parseInt(tmpNode.offsetHeight);
         tmpNode.parentNode.removeChild(tmpNode);
-
     }
     return arrDPI;
 }

@@ -60,9 +60,11 @@ function CreateCanvas() {
     var footballFieldWrapper = document.getElementById('footballFieldWrapper');
     footballFieldWrapper.appendChild(chart);
     var fb = new Footballer('footballer', 0, 2, bl);
-    footballFieldWrapper.appendChild(fb.GetDom());
+    fb.Init(2, 2); //设置球员初始位置
+    footballFieldWrapper.appendChild(fb.dom);
+    fb.Run(10, 10);
 
-    fb.Run(100, 200);
+    //fb.Run(100, 200);
 }
 
 console.log("dpi:" + getDPI());
