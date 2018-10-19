@@ -1,71 +1,18 @@
-//世界杯决赛阶段：长度105米（约115码），宽度68米（约74码）
-var footballField = new FootballField(68, 105)
-
-function CreateCanvas() {
-    var wrapper = document.getElementById('footballFieldWrapper')
-    var chart = document.createElement("canvas");
-    // chart.width = 800;
-    // chart.height = 450;
-    chart.width = footballField.length;
-    chart.height = footballField.width;
-    var realBL = footballField.width / footballField.length; //实际球场的宽高比
-    if (chart.width > wrapper.clientWidth) //如果宽度大于容器的宽度
-    {
-        chart.width = wrapper.clientWidth;
-        chart.height = chart.width * realBL;
-    }
-    if (chart.height > wrapper.clientHeight) { //如果高度大于容器的高度
-        chart.height = wrapper.clientHeight;
-        chart.width = chart.height * realBL;
-    }
-    var bl = chart.width / footballField.length; //球场的缩放比例
-    // var rectWidth = footballField.length * chartBL; //计算出矩形的宽度
-    // var rectHeight = rectWidth * realBL; //计算出矩形的长度
-
-    if (chart.getContext) {
-        var marginX = 40;
-        var marginY = 20;
-        var bigDoorWidth = 120;
-        var bigDoorHeight = 240;
-        var r = 80; //中间球的半径
-        var ctx = chart.getContext('2d');
-        //ctx.beginPath();
-        //填充绿地
-        ctx.rect(0, 0, chart.width, chart.height);
-        ctx.fillStyle = "#008001";
-        ctx.fill();
-        //最外面的白线框
-        ctx.rect(marginX, marginY, chart.width - marginX * 2, chart.height - marginY * 2);
-        ctx.strokeStyle = "#FFF";
-        ctx.stroke();
-        //画中线
-        ctx.beginPath();
-        ctx.moveTo(chart.width / 2, marginY);
-        ctx.lineTo(chart.width / 2, chart.height - marginY)
-        ctx.strokeStyle = "#FFF";
-        ctx.stroke();
-        //画中间的圆
-        ctx.beginPath();
-        ctx.arc(chart.width / 2, chart.height / 2, r, 0, 2 * Math.PI);
-        ctx.stroke();
-        //画左边大球门
-        ctx.beginPath();
-        ctx.moveTo(marginX, chart.height / 2 - bigDoorHeight / 2);
-        ctx.lineTo(marginX + bigDoorWidth, chart.height / 2 - bigDoorHeight / 2);
-        ctx.lineTo(marginX + bigDoorWidth, chart.height / 2 + bigDoorHeight / 2);
-        ctx.lineTo(marginX, chart.height / 2 + bigDoorHeight / 2);
-        ctx.strokeStyle = "#FFF";
-        ctx.stroke();
-    }
+function Start() {
+    var wrapper = document.getElementById('footballFieldWrapper');
     var footballFieldWrapper = document.getElementById('footballFieldWrapper');
-    footballFieldWrapper.appendChild(chart);
-    var fb = new Footballer('footballer', 0, 2, bl);
-    fb.Init(2, 2); //设置球员初始位置
-    footballFieldWrapper.appendChild(fb.dom);
-    fb.Run(10, 10);
-
-    //fb.Run(100, 200);
+    //世界杯决赛阶段：长度105米（约115码），宽度68米（约74码）
+    var footballField = new FootballField(68, 105, wrapper.clientWidth, wrapper.clientHeight)
+    footballFieldWrapper.appendChild(footballField.dom);
+    //速度为100的球员
+    var fb1 = new Footballer(100, 2, footballField.bl);
+    fb1.Init(2, 2); //设置球员初始位置
+    footballFieldWrapper.appendChild(fb1.dom);
+    fb1.Run(14, 2);
+    //速度为1的球员
+    var fb2 = new Footballer(1, 2, footballField.bl);
+    fb2.Init(2, 12); //设置球员初始位置
+    footballFieldWrapper.appendChild(fb2.dom);
+    fb2.Run(14, 12);
 }
-
-console.log("dpi:" + getDPI());
-CreateCanvas();
+Start();
