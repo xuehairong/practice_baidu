@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="a">A</button>
+    <button id="b">B</button>
+    <button id="c">C</button>
+
+    <button id="d">D</button>
+    <button id="e">E</button>
+    <button id="f">F</button>
+
+
+    <div id="contABC"></div>
+    <div id="contDEF"></div>
+
+
+</body>
+<script>
+    function getHashValue() {
+        var result = "";
+        var str = location.hash;
+        result = str.substr(1, str.length - 1);
+        return result;
+    }
+
+    function changeCont() {
+        var content = getHashValue();
+        if (content)
+            document.getElementById('cont').innerHTML = content;
+    }
+
+    var btns = document.getElementsByTagName('button');
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].onclick = function(e) {
+            var e = e || window.event;
+            var target = e.target || e.srcElement;
+            location.hash = '#' + target.innerHTML;
+        }
+    }
+    window.onhashchange = function() {
+        changeCont();
+    }
+    changeCont();
+</script>
+
+</html>
